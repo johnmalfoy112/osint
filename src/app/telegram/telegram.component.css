@@ -14,6 +14,16 @@
   background-color: #f8f9fa !important;
   /* Light gray on hover */
 }
+.transparent-bg {
+  background-color: transparent !important;
+  color: #fffff0 !important; /* Set text color to #fffff0 */
+}
+
+.transparent-bg::placeholder {
+  color: #fffff0; /* Set placeholder color to #fffff0 */
+}
+/* Add other styles as needed */
+
 
 
 

@@ -8,7 +8,7 @@
           <form (submit)="onSubmit()">
             <!-- input placeholder -->
             <div class="input-group">
-              <input [(ngModel)]="searchTerm" type="text" name="search" class="form-control rounded-5 shadow"
+              <input [(ngModel)]="searchTerm" type="text" name="search" class="form-control rounded-5 shadow transparent-bg"
                 placeholder="Search Here" aria-label="Search Word" aria-describedby="button-addon2" [class.input-highlight]="isFocused" #box #search (focus)="onFocus()"
                 (blur)="onBlur()">
               &nbsp;

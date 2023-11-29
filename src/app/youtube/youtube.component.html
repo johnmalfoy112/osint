@@ -8,7 +8,7 @@
         <div class="col-xl">
           <!-- input placeholder -->
           <div class="input-group">
-            <input type="text" class="form-control rounded-5 shadow" [(ngModel)]="searchQuery"
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [(ngModel)]="searchQuery"
               [class.input-highlight]="isFocused" #box #search
               placeholder="{{ searchType === 'video' ? 'Search Videos' : 'Search Channels' }}" aria-label="Search Word"
               aria-describedby="button-addon2" (keyup.enter)="searchVideos()" (focus)="onFocus()" (blur)="onBlur()">
@@ -59,7 +59,7 @@
     </button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="sentimentMenu"
-    class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" style="height:40px; width: 150px;">
+    class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;">
     Sentiment
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
@@ -99,7 +99,7 @@
   </div>
   <!-- <button (click)="loadMore()" *ngIf="nextpagetoken">Load More</button> -->
   <div class="d-flex justify-content-center" *ngIf="videos.length > 0">
-    <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" (click)="loadMore()"
+    <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown" (click)="loadMore()"
       *ngIf="nextpagetoken">Load More</button>
   </div>
 </div>

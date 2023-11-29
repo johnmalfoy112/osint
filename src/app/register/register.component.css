@@ -7,6 +7,16 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.transparent-bg {
+  background-color: transparent !important;
+  color: #fffff0 !important; /* Set text color to #fffff0 */
+}
+
+.transparent-bg::placeholder {
+  color: #fffff0; /* Set placeholder color to #fffff0 */
+}
+/* Add other styles as needed */
+
 .field {
   margin-bottom: 15px;
 }
@@ -34,4 +44,60 @@ button:disabled {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  color: white;
+}
+
+.register-form {
+  width: 300px;
+  padding: 20px; /* Add padding as needed */
+  border: 1px solid #ccc; /* Add border style and color */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+  border-radius: 8px;
+}
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.field input {
+  border-radius: 8px; /* You can adjust the value to control the roundness of the corners */
+}
+
+
+.password-input {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.field input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: transparent; /* Set background color to transparent */
+  color: white; /* Set text color to white */
+  border: 1px solid #fff; /* Set border color to white */
+}
+
+.field input::placeholder {
+  color: white; /* Set placeholder color to white */
+}
+
+.password-input span {
+  color: white;
+  cursor: pointer;
 }

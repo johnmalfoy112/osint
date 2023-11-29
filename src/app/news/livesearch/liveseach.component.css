@@ -15,6 +15,24 @@
   /* Light gray on hover */
 }
 
+.transparent-bg {
+  background-color: transparent !important;
+  color: #fffff0 !important; /* Set text color to #fffff0 */
+}
+
+.transparent-bg::placeholder {
+  color: #fffff0; /* Set placeholder color to #fffff0 */
+}
+/* Add other styles as needed */
+
+.transparent-menu {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.transparent-menu button {
+  color: white !important;
+}
 
 
 .mat-toolbar.mat-primary {

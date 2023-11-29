@@ -7,23 +7,23 @@
         <div class="col-xl">
           <!-- input placeholder -->
           <div class="input-group">
-            <input type="text" class="form-control rounded-5 shadow" [class.input-highlight]="isFocused" #box #search
-              placeholder="Search Keywords" aria-label="Search Word" aria-describedby="button-addon2"
-              (keyup.enter)="searchNews(search.value, languageCode, countryCode)" (focus)="onFocus()" (blur)="onBlur()">
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [class.input-highlight]="isFocused" #box #search
+       placeholder="Search Keywords" aria-label="Search Word" aria-describedby="button-addon2"
+       (keyup.enter)="searchNews(search.value, languageCode, countryCode)" (focus)="onFocus()" (blur)="onBlur()">
             &nbsp;
             &nbsp;
             <!-- advance search button -->
-            <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+            <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
               [matMenuTriggerFor]="AdvanceSearch" style="height:40px; width: 150px;">Advance
               Search</button>
-            <mat-menu #AdvanceSearch="matMenu">
+            <mat-menu #AdvanceSearch="matMenu" class="transparent-menu">
               <div fxLayout="row wrap" fxLayoutAlign="start start">
                 <!-- country advance button -->
                 <button mat-menu-item [matMenuTriggerFor]="CountryMenu">
                   Country
                 </button>
               </div>
-              <mat-menu #CountryMenu="matMenu">
+              <mat-menu #CountryMenu="matMenu"  class="transparent-menu">
                 <button mat-menu-item *ngFor="let country1 of countries" (click)="country(country1.code)">
                   {{ country1.name }} <mat-icon *ngIf="selectedcountry === country1.code">done</mat-icon>
                 </button>
@@ -34,7 +34,7 @@
                   Language
                 </button>
               </div>
-              <mat-menu #LanguageMenu="matMenu">
+              <mat-menu #LanguageMenu="matMenu"  class="transparent-menu">
                 <button mat-menu-item *ngFor="let lang of languages" (click)="language(lang.code)">
                   {{ lang.name }} <mat-icon *ngIf="selectedLanguage === lang.code">done</mat-icon>
                 </button>
@@ -58,7 +58,7 @@
     </div>
   </div>
   <!-- sentiment filter -->
-  <mat-menu #sentimentMenu="matMenu">
+  <mat-menu #sentimentMenu="matMenu"   class="transparent-menu" >
     <button mat-menu-item value="All" (click)="selectSentimentFilter('All')">
       <mat-icon>dashboard</mat-icon> All Sentiments
     </button>
@@ -73,14 +73,14 @@
     </button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="sentimentMenu"
-    class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" style="height:40px; width: 150px;">
+    class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;">
     Sentiment
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
   <!-- middle space -->
   <span class="example-spacer"></span>
   <!-- country filter button -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
     [matMenuTriggerFor]="Country" style="height:40px; width: 100px;">
     Country
   </button>
@@ -95,7 +95,7 @@
   &nbsp;
   &nbsp;
   <!-- language filter button -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
     [matMenuTriggerFor]="Language" style="height:40px; width: 100px;">
     Language
   </button>
@@ -110,14 +110,14 @@
   &nbsp;
   &nbsp;
   <!-- export as text button -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+  <button mat-button class="btn text-light p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
     (click)="exportAllNewsAsText(search.value)">
     <img src="./../../../assets/export.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button>
   &nbsp;
   &nbsp;
   <!-- export as pdf button -->
-  <!-- <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+  <!-- <button mat-button class="btn text-bg-light p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
     (click)="exportAllNewsAsPdf(search.value)">
     <img src="./../../../assets/pdf.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button> -->
@@ -125,7 +125,7 @@
   &nbsp;
 </mat-toolbar-row>
 <!-- cards starts-->
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-2 transparent-bg">
   <div class="row mt-3">
     <!-- for each loop -->
     <div *ngFor="let article of articles" class="col-lg-2 col-md-4 col-sm-6 mt-3 mb-3">
@@ -169,7 +169,7 @@
 </div>
 <!-- load more button -->
 <div class="d-flex justify-content-center" *ngIf="articles.length > 0">
-  <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
     (click)="loadmorenews(search.value, nextPageToken)"
     [disabled]="nextPageToken === null">Load More</button>
 </div>

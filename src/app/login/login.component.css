@@ -7,6 +7,17 @@
   margin-bottom: 15px;
 }
 
+.transparent-bg {
+  background-color: transparent !important;
+  color: #fffff0 !important; /* Set text color to #fffff0 */
+}
+
+.transparent-bg::placeholder {
+  color: #fffff0; /* Set placeholder color to #fffff0 */
+}
+/* Add other styles as needed */
+
+
 label {
   display: block;
   margin-bottom: 5px;
@@ -40,3 +51,75 @@ button:disabled {
 .mt-2 {
   margin-top: 10px;
 }
+
+.login-form {
+  width: 300px;
+  padding: 20px; /* Add padding as needed */
+  border: 1px solid #ccc; /* Add border style and color */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+  border-radius: 8px;
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.field input {
+  border-radius: 8px; /* You can adjust the value to control the roundness of the corners */
+}
+
+
+.password-input {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  color: white;
+}
+
+.field input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: transparent; /* Set background color to transparent */
+  color: white; /* Set text color to white */
+  border: 1px solid #fff; /* Set border color to white */
+}
+
+.field input::placeholder {
+  color: white; /* Set placeholder color to white */
+}
+
+.password-input span {
+  color: white;
+  cursor: pointer;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+}
+
+.logo-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain; /* This ensures the image retains its aspect ratio */
+}
+  

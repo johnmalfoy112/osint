@@ -24,5 +24,17 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, loginData);
   }
 
+   // Check if the user is authenticated
+  isAuthenticated(): boolean {
+    const isLogin = localStorage.getItem('islogin');
+    return isLogin === 'true';
+  }
+
+  // Log out the user
+  logout(): void {
+    localStorage.removeItem('islogin');
+    // Additional logout logic if needed (e.g., redirect to login page)
+  }
+
 
 }

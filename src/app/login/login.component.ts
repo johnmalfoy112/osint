@@ -39,7 +39,6 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.authService.loginUser(email as string, password as string).subscribe(
       response => {
-        // console.log(response);
         sessionStorage.setItem('email', email as string);
         localStorage.setItem("islogin", "true");
         this.router.navigate(['/dashboard']);
@@ -49,6 +48,12 @@ export class LoginComponent {
         localStorage.setItem("islogin", "false");
       }
     );
+  }
+
+  // Logout functionality
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

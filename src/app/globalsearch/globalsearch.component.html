@@ -7,7 +7,7 @@
         <div class="col-xl">
           <div class="input-group">
             <!-- search box -->
-            <input type="text" class="form-control rounded-5 shadow" [class.input-highlight]="isFocused"
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [class.input-highlight]="isFocused"
               (focus)="onFocus()" (blur)="onBlur()" placeholder="Enter search query" aria-label="Search Word"
               aria-describedby="button-addon2" [(ngModel)]="searchQuery" (keyup.enter)="search()" />
             &nbsp;

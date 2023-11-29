@@ -48,12 +48,13 @@
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
-.toolbar{
-  background-color: #212529;
+.toolbar {
+  background-color: #1E293B;
   color: white;
-  border: black;
-  border-bottom: 5px;
+  border-bottom: 5px solid black; /* Specify the border color and style */
+  border: 1px solid black; /* Specify the overall border properties */
 }
+
 .color-button{
   background-color: white;
   color: black;
@@ -108,6 +109,10 @@ body {
   font-size: 16px;
  }
  .login {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .logout {
   border: 0ch;
   font-size: 16px;
  }

@@ -47,6 +47,16 @@
   font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
   /* Replace with your desired background color */
 }
+.transparent-bg {
+  background-color: transparent !important;
+  color: #fffff0 !important; /* Set text color to #fffff0 */
+}
+
+.transparent-bg::placeholder {
+  color: #fffff0; /* Set placeholder color to #fffff0 */
+}
+/* Add other styles as needed */
+
 .center {
   position: absolute;
   top: 50%;

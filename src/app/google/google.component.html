@@ -8,7 +8,7 @@
         <div class="col-xl">
           <div class="input-group">
             <!-- search box -->
-            <input type="text" class="form-control rounded-5 shadow" [class.input-highlight]="isFocused"
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [class.input-highlight]="isFocused"
               [(ngModel)]="query" placeholder="{{ searchType === 'query' ? 'Enter search query' : 'Search Images' }}"
               (keyup.enter)="search()" aria-label="Search Word" aria-describedby="button-addon2" (focus)="onFocus()"
               (blur)="onBlur()" enableAutoComplete="true" />

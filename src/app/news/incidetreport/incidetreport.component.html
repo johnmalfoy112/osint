@@ -7,7 +7,7 @@
         <div class="col-xl">
           <div class="input-group">
             <!-- search box -->
-            <input type="text" class="form-control rounded-5 shadow" [class.input-highlight]="isFocused" #box #search
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [class.input-highlight]="isFocused" #box #search
               placeholder="Search Keywords" aria-label="Search Word" aria-describedby="button-addon2"
               (keyup.enter)="getValue(box.value)" (keyup.enter)="searchNews()" (focus)="onFocus()" (blur)="onBlur()">
             &nbsp;
@@ -29,7 +29,7 @@
   <!-- middle space -->
   <span class="example-spacer"></span>
   <!-- language menu button -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
     [matMenuTriggerFor]="Language" style="height:40px; width: 100px;">
     Language
   </button>
@@ -45,20 +45,20 @@
   &nbsp;
   &nbsp;
   <!-- keyword button -->
-  <button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" mat-raised-button
+  <button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" mat-raised-button
     (click)="openDialog()" style="height:40px; width: 90px; background-color: transparent;">
     Keywords</button>
   &nbsp;
   &nbsp;
   <!-- export news -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
     (click)="exportAllNewsAsText(search.value)">
     <img src="./../../../assets/export.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button>
   &nbsp;
   &nbsp;
   <!-- export as pdf button -->
-  <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+  <button mat-button class="btn text-bg-light p-3 py-2 btn-light rounded-5 body-dropdown " style="width: 40px; height: 40px;"
     (click)="exportAllNewsAsPdf(search.value)">
     <img src="./../../../assets/pdf.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button>

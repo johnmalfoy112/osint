@@ -12,6 +12,9 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
 })
 export class RegisterComponent {
 
+  showPassword = false; // Added property
+  showConfirmPassword: boolean = false;
+
   //registration form group
   registerForm = this.fb.group({
     fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
@@ -36,6 +39,14 @@ export class RegisterComponent {
   }
   get confirmPassword() {
     return this.registerForm.controls['confirmPassword'];
+  }
+
+   //show password
+   togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   //submit button function
