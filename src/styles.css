@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; color:black;  }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;/* background-image: url('./assets/backgroundimage.jpg'); Adjust the path if necessary
+  background-size: cover; Adjust as needed
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional, to fix the background */}
+*{
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+
+}
+
+body{
+  font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+
+}
+
+marquee{
+  color: green;
+}
+
+.box{
+  padding: 10px 10px;
+
+}
+
+.box h5{
+font-size: 15px;
+font-weight: bold;
+
+}
+
+html, body { height: 100%; }
+body { margin: 0; background: #BAD1CD; font-family:  "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji"; }
+
+
+
+

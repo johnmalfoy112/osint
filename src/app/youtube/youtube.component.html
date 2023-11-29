@@ -1,0 +1,212 @@
+<div class="overlay" *ngIf="isModalOpen"></div>
+<mat-toolbar-row style="height: 80px;">
+  &nbsp;
+  &nbsp;
+  <div class="py-4 ">
+    <div class="container-fluid px-6">
+      <div class="row align-items-center">
+        <div class="col-xl">
+          <!-- input placeholder -->
+          <div class="input-group">
+            <input type="text" class="form-control rounded-5 shadow" [(ngModel)]="searchQuery"
+              [class.input-highlight]="isFocused" #box #search
+              placeholder="{{ searchType === 'video' ? 'Search Videos' : 'Search Channels' }}" aria-label="Search Word"
+              aria-describedby="button-addon2" (keyup.enter)="searchVideos()" (focus)="onFocus()" (blur)="onBlur()">
+            &nbsp;
+            &nbsp;
+            <!-- input button -->
+            <button class="btn btn-outline-secondary" (click)="searchVideos()" type="button" id="Search-addon2">
+              <!-- input search icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- radio button to switch between video serch and channel search-->
+        <div class="col-xl search-options d-flex ">
+          <div class="form-check form-check-inline mb-0">
+            <input class="form-check-input" type="radio" [(ngModel)]="searchType" name="searchType" value="video"
+              (change)="resetResults()" [checked]="searchType === 'video'" (click)="setSearchType('video')">
+            <label class="form-check-label">Search Videos</label>
+          </div>
+          <div class="form-check form-check-inline mb-0">
+            <input class="form-check-input" type="radio" [(ngModel)]="searchType" name="searchType" value="channel"
+              (change)="resetResults()" [checked]="searchType === 'channel'" (click)="setSearchType('channel')">
+            <label class="form-check-label">Search Channels</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- middle space -->
+  <span class="example-spacer"></span>
+  <!-- Sentiment Filter -->
+  <mat-menu #sentimentMenu="matMenu" style="background-color: transparent;">
+    <button mat-menu-item (click)="selectSentimentFilter('all')">
+      <mat-icon>dashboard</mat-icon> All Sentiments
+    </button>
+    <button mat-menu-item (click)="selectSentimentFilter('positive')">
+      <mat-icon style="color: green;">done</mat-icon> Positive
+    </button>
+    <button mat-menu-item (click)="selectSentimentFilter('negative')">
+      <mat-icon style="color: red;">close</mat-icon> Negative
+    </button>
+    <button mat-menu-item (click)="selectSentimentFilter('neutral')">
+      <mat-icon style="color: yellow;">help_outline</mat-icon> Neutral
+    </button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="sentimentMenu"
+    class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" style="height:40px; width: 150px;">
+    Sentiment
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  &nbsp;
+  &nbsp;
+</mat-toolbar-row>
+<!-- cards to show news data -->
+<div class="container-fluid mt-2" *ngIf="!clickedChannel1">
+  <div class="row mt-3">
+    <div class="col-lg-3 mt-3 mb-3" *ngFor="let video of videos">
+      <div class="card h-100 highlight-card" style="border: 1px;">
+        <div class="card-header d-flex align-items-center">
+          <img class="rounded-circle mr-2" [src]="video.snippet.thumbnails.default.url" alt="Channel Profile" width="40"
+            height="40" style="margin-right: 10px;">
+          <div class="ml-10">
+            <h5 class="mb-0 card-title">
+              <a href="javascript:void(0)" (click)="showChannelVideosFromSearch(video)">
+                {{ video.snippet.channelTitle }}
+              </a>
+            </h5>
+            <p class="mb-0">{{ video.snippet.publishedAt | date:'medium' }}</p>
+          </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="flex-grow-1">
+            <h5 class="card-title">{{ video.snippet.title | slice:0:100 }}</h5>
+            <!-- <p [innerHTML]="video.fullDescription"></p> -->
+          </div>
+          <a class="play-button-container" (click)="openDialog(video)">
+            <img [src]="getThumbnailUrl(video.snippet.thumbnails)" alt="{{ video.snippet.title }}" width="100%"
+              height="200" style="border-radius: 10px;">
+            <i class="fas fa-play play-button"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <button (click)="loadMore()" *ngIf="nextpagetoken">Load More</button> -->
+  <div class="d-flex justify-content-center" *ngIf="videos.length > 0">
+    <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" (click)="loadMore()"
+      *ngIf="nextpagetoken">Load More</button>
+  </div>
+</div>
+<!-- cards to show channel videos -->
+<div class="container-fluid mt-2" *ngIf="clickedChannel1"> <!-- Show only if a channel is clicked -->
+  <div class="namerow mt-3">
+    <button class="btn btn-link" (click)="goBack()">Back</button>
+    <div class="col-lg-12 text-center"> <!-- Center align the content -->
+      <h1>Channel Name: {{ clickedChannel1.snippet.channelTitle }}</h1> <!-- Add label -->
+    </div>
+  </div>
+  <!-- Display videos of the clicked channel here -->
+  <div class="row mt-3">
+    <div class="col-lg-3 mt-3 mb-3" *ngFor="let video of clickedChannelVideos1">
+      <div class="card h-100" style="border: 1px;">
+        <div class="card-header d-flex align-items-center">
+          <img class="rounded-circle mr-2" [src]="video.snippet.thumbnails.default.url" alt="Channel Profile" width="40"
+            height="40" style="margin-right: 10px;">
+          <div class="ml-10">
+            <h5 class="mb-0 card-title">
+              <a [href]="'https://www.youtube.com/channel/' + video.snippet.channelId" target="_blank">
+                {{ video.snippet.channelTitle }}
+              </a>
+            </h5>
+            <p class="mb-0">{{ video.snippet.publishedAt | date:'medium' }}</p>
+          </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="flex-grow-1">
+            <h5 class="card-title">{{ video.snippet.title | slice:0:100 }}</h5>
+            <p [innerHTML]="video.Description"></p>
+            <p>{{video.snippet.description}}</p>
+            <!-- <p>{{video.fullDescription}}</p>
+          <p>{{video.tags}}</p>  -->
+            <!-- <p class="card-text">{{ video.snippet.description }}</p> -->
+          </div>
+          <a class="play-button-container" (click)="openDialog(video)">
+            <img [src]="getThumbnailUrl(video.snippet.thumbnails)" alt="{{ video.snippet.title }}" width="100%"
+              height="200" style="border-radius: 10px;">
+            <i class="fas fa-play play-button"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- cards to show search channel -->
+<!-- cards to show channel name -->
+<div class="container-fluid mt-2" *ngIf="!clickedChannel"> <!-- Show only if a channel is not clicked -->
+  <div class="row mt-3">
+    <div class="col-lg-3 mt-3 mb-3" *ngFor="let channel of channels">
+      <div class="card h-100" style="border: 1px;border-radius: 10px;">
+        <div class="card-header d-flex align-items-center">
+          <img class="rounded-circle mr-2" [src]="channel.snippet.thumbnails.default.url" alt="Channel Profile"
+            width="60" height="60" style="margin-right: 10px;">
+          <div class="ml-10">
+            <h5 class="card-title">
+              <a href="javascript:void(0)" (click)="showChannelVideos(channel)">
+                {{ channel.snippet.title }}
+              </a>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- cards to show channel videos -->
+<div class="container-fluid mt-2" *ngIf="clickedChannel"> <!-- Show only if a channel is clicked -->
+  <div class="namerow mt-3">
+    <button class="btn btn-link" (click)="goBack()">Back</button>
+    <div class="col-lg-12 text-center"> <!-- Center align the content -->
+      <h1>Channel Name: {{ clickedChannel.snippet.channelTitle }}</h1> <!-- Add label -->
+    </div>
+  </div>
+
+  <!-- Display videos of the clicked channel here -->
+  <div class="row mt-3">
+    <div class="col-lg-3 mt-3 mb-3" *ngFor="let video of clickedChannelVideos">
+      <div class="card h-100" style="border: 1px;">
+        <div class="card-header d-flex align-items-center">
+          <img class="rounded-circle mr-2" [src]="video.snippet.thumbnails.default.url" alt="Channel Profile" width="40"
+            height="40" style="margin-right: 10px;">
+          <div class="ml-10">
+            <h5 class="mb-0 card-title">
+              <a [href]="'https://www.youtube.com/channel/' + video.snippet.channelId" target="_blank">
+                {{ video.snippet.channelTitle }}
+              </a>
+            </h5>
+            <p class="mb-0">{{ video.snippet.publishedAt | date:'medium' }}</p>
+          </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="flex-grow-1">
+            <h5 class="card-title">{{ video.snippet.title | slice:0:100 }}</h5>
+            <!-- <p class="card-text">{{ video.snippet.description }}</p> -->
+            <!-- <p [innerHTML]="video.fullDescription"></p> -->
+          </div>
+          <a class="play-button-container" (click)="openDialog(video)">
+            <img [src]="getThumbnailUrl(video.snippet.thumbnails)" alt="{{ video.snippet.title }}" width="100%"
+              height="200" style="border-radius: 10px;">
+            <i class="fas fa-play play-button"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

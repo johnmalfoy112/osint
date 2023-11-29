@@ -1,0 +1,62 @@
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+}
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+}
+.card-header img {
+  border-radius: 50%;
+}
+.card-header .ml-10 {
+  flex-grow: 1;
+}
+.card-title  {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.centered-iframe {
+  display: block;
+  margin: 0 auto;
+}
+/* Left Section */
+.modal-left {
+  flex: 1;
+  margin-right: 5px;
+  align-items: center;
+  align-content: center;
+  position: sticky;
+  overflow: hidden;
+}
+/* Right Section (Fixed) */
+.modal-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.right-part-1,
+.right-part-2 {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+/* Right Section - Part 3 (Scrollable) */
+.right-part-3 {
+  flex-grow: 1;
+  overflow-y: auto;
+}

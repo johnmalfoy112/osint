@@ -1,0 +1,6 @@
+/* Add this CSS in your component's style file (.css) */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

@@ -1,0 +1,43 @@
+<mat-dialog-content class="modal-content">
+  <!-- Left Section -->
+  <div class="modal-left">
+    <!-- Content for the left section goes here -->
+    <div id="youtube-player" style="width: 500px; height: 400px; align-items: center;">
+    </div>
+  </div>
+  <!-- Right Section -->
+  <div class="modal-right">
+    <!-- Right Section - Part 1 -->
+    <button mat-mini-fab class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div class="right-part-1">
+      <!-- Content for the first part of the right section goes here -->
+      <div class="card-header d-flex align-items-center">
+        <img class="rounded-circle mr-2" [src]="channel.profilePictureUrl" alt="Channel Profile" width="40" height="40"
+          style="margin-right: 10px;">
+        <div class="ml-10">
+          <h3 class="mb-0 card-title">
+            <a [href]="data.videoLink" target="_blank">
+              {{ channel.name }}
+            </a>
+          </h3>
+          <p class="mb-0">{{ channel.postedDate | date:'medium' }}</p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- Right Section - Part 2 -->
+    <div class="right-part-2">
+      <!-- Content for the second part of the right section goes here -->
+      <h2 class="card-title" style="font-weight: bolder;">{{ data.title | slice:0:100 }}</h2>
+    </div>
+    <hr>
+    <!-- Right Section - Part 3 (Scrollable) -->
+    <div class="right-part-3 scrollable-content">
+      <!-- Content for the third part of the right section goes here -->
+      <p>{{ data.description }}</p>
+      <!-- <p>{{data.fullDescription}}</p> -->
+    </div>
+  </div>
+</mat-dialog-content>

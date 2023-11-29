@@ -1,0 +1,26 @@
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="login-form">
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="text" formControlName="email" class="w-full" name="email" placeholder="Type your email"/>
+    <small *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+      <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+      <div *ngIf="loginForm.get('email')?.errors?.['email']">Email should be valid</div>
+    </small>
+  </div>
+  <div class="field">
+    <label for="password">Password</label>
+    <div class="password-input">
+      <input type="{{ showPassword ? 'text' : 'password' }}" formControlName="password" class="w-full" name="password" placeholder="Type your password" />
+      <span (click)="togglePasswordVisibility()">Show Password</span>
+    </div>
+    <small *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+      <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
+    </small>
+  </div>
+  <button
+    class="w-full"
+    [disabled]="loginForm.invalid"
+    type="submit"
+  >SIGN IN</button>
+  <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
+</form>

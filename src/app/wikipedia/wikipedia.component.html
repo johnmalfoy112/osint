@@ -1,0 +1,50 @@
+<mat-toolbar-row style="height:80px;">
+  &nbsp;
+  &nbsp;
+  <div class="py-4 ">
+    <div class="container-fluid px-6">
+      <div class="row">
+        <div class="col-xl">
+          <form (submit)="onSubmit()">
+            <!-- input placeholder -->
+            <div class="input-group">
+              <input [(ngModel)]="searchTerm" type="text" name="search" class="form-control rounded-5 shadow"
+                placeholder="Search Here" aria-label="Search Word" aria-describedby="button-addon2" [class.input-highlight]="isFocused" #box #search (focus)="onFocus()"
+                (blur)="onBlur()">
+              &nbsp;
+                <button class="btn btn-outline-secondary" type="Search" id="Search-addon2">
+                  <!-- input search icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-search" viewBox="0 0 16 16">
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                  </svg>
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-toolbar-row>
+<!-- wikipedia results shows -->
+<div class="container-fluid mt-2">
+  <div class="row mt-3">
+    <div *ngFor="let result of results | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalResults }"
+      class="search-result mt-3">
+      <a href="https://en.wikipedia.org/wiki?curid={{result.pageid}}" class="search-link"
+        target="_blank">https://en.wikipedia.org/wiki?curid={{result.pageid}}</a>
+      <h4>
+        <a href="https://en.wikipedia.org/wiki?curid={{result.pageid}}" target="_blank">{{result.title}}</a>
+      </h4>
+      <p [innerHtml]="result.snippet">
+      </p>
+      <p>
+      </p>
+    </div>
+    <!-- pagination starts -->
+    <div class="text-center" *ngIf="results.length > 20">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

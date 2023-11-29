@@ -1,0 +1,110 @@
+<mat-toolbar-row style="height:80px;">
+  &nbsp;
+  &nbsp;
+  <div class="py-4 ">
+    <div class="container-fluid px-6">
+      <div class="row">
+        <div class="col-xl">
+          <div class="input-group">
+            <!-- search box -->
+            <input type="text" class="form-control rounded-5 shadow" [class.input-highlight]="isFocused" #box #search
+              placeholder="Search Keywords" aria-label="Search Word" aria-describedby="button-addon2"
+              (keyup.enter)="getValue(box.value)" (keyup.enter)="searchNews()" (focus)="onFocus()" (blur)="onBlur()">
+            &nbsp;
+            &nbsp;
+            <!-- search button -->
+            <button class="btn btn-outline-secondary" (click)="getValue(box.value)" (click)="searchNews()" type="Search"
+              id="Search-addon2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- middle space -->
+  <span class="example-spacer"></span>
+  <!-- language menu button -->
+  <button mat-button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown"
+    [matMenuTriggerFor]="Language" style="height:40px; width: 100px;">
+    Language
+  </button>
+  <mat-menu #Language="matMenu">
+    <button mat-menu-item (click)="language('')">
+      All <mat-icon *ngIf="!selectedLanguage">done</mat-icon>
+    </button>
+    <button mat-menu-item *ngFor="let lang of languages" (click)="language(lang)">
+      {{ lang }} <mat-icon *ngIf="selectedLanguage === lang">done</mat-icon>
+    </button>
+  </mat-menu>
+
+  &nbsp;
+  &nbsp;
+  <!-- keyword button -->
+  <button class="btn text-dark p-3 py-2 btn-light border rounded-5 body-dropdown" mat-raised-button
+    (click)="openDialog()" style="height:40px; width: 90px; background-color: transparent;">
+    Keywords</button>
+  &nbsp;
+  &nbsp;
+  <!-- export news -->
+  <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+    (click)="exportAllNewsAsText(search.value)">
+    <img src="./../../../assets/export.svg" alt="Export Icon" style="width: 20px; height: 20px;">
+  </button>
+  &nbsp;
+  &nbsp;
+  <!-- export as pdf button -->
+  <button mat-button class="btn text-dark p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
+    (click)="exportAllNewsAsPdf(search.value)">
+    <img src="./../../../assets/pdf.svg" alt="Export Icon" style="width: 20px; height: 20px;">
+  </button>
+  &nbsp;
+  &nbsp;
+</mat-toolbar-row>
+<!-- cards starts-->
+<div class="container-fluid mt-2">
+  <div class="row mt-3">
+    <div *ngIf="showNoDataMessage">No data found in Database</div>
+    <!-- for each loop -->
+    <div *ngFor="let article of newsData" class="col-lg-2 col-md-4 col-sm-6 mt-3 mb-3">
+      <div class="card h-100">
+        <ng-container *ngIf="article.image_url; else noImage">
+          <img [src]="article.image_url" alt="" class="card-img-top w-100 rounded-top-4">
+        </ng-container>
+        <ng-template #noImage>
+          <div class="card-body">
+            <a class="link" [href]="article.link" target="_blank">
+              <h5 class="card-title">{{ article.title | slice:0:60 }}</h5>
+            </a>
+            <p class="card-text">{{ article.content | slice:0:300 }}</p>
+          </div>
+        </ng-template>
+        <div class="card-body">
+          <a class="link" [href]="article.link" target="_blank">
+            <h5 class="card-title">{{ article.title | slice:0:60 }}</h5>
+          </a>
+          <p class="card-text">{{ article.content | slice:0:100 }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex flex-column">
+            <div class="articlesource">
+              <a class="sourcelink" href="{{ article.link }}" target="_blank" style="font-weight: 500;">{{
+                article.source_id }}</a>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="articlepubdate">{{ article.pubDate }}</span>
+              <button class="close red-close" mat-button (click)="toggleSelectedArticle(article)">
+                <mat-icon *ngIf="isArticleSelected(article)">clear</mat-icon>
+                <mat-icon *ngIf="!isArticleSelected(article)">close</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

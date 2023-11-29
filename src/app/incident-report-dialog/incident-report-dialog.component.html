@@ -1,0 +1,104 @@
+<mat-dialog-content>
+  <button mat-mini-fab class="close-button" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h1 style="text-align: center;">INCIDENT KEYWORD</h1>
+  <mat-tab-group>
+    <mat-tab label="Keywords">
+      <div class="keyword-content">
+        <h2>Add New Keyword</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" [(ngModel)]="newKeyword" placeholder="Enter a Keyword">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="addKeyword()">Add</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- Select Group -->
+            <div class="input-group mb-3">
+              <select class="form-select" [(ngModel)]="selectedGroup">
+                <option value="" disabled>Select a Group</option>
+                <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+              </select>
+            </div>
+          </div>
+          </div>
+
+        <h2>Keywords List</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Keyword</th>
+              <th>Group</th>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>Select</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let keyword of keywords; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ keyword.keyword }}</td>
+              <td>{{ keyword.group }}</td>
+              <td>
+                <button mat-icon-button color="primary" (click)="editKeyword(keyword)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-icon-button color="warn" (click)="deleteKeyword(keyword)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td>
+                <mat-checkbox (change)="selectKeyword(keyword)"></mat-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Groups">
+      <div class="group-content">
+        <h2>Add New Group</h2>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="newGroup" placeholder="Enter a Group Name">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="addGroup()">Add</button>
+          </div>
+        </div>
+        <h2>Group List</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Serial No.</th>
+              <th>Group</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of groups; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ group }}</td>
+              <td>
+                <button mat-icon-button color="primary" (click)="editGroup(group)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-icon-button color="warn" (click)="deleteGroup(group)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

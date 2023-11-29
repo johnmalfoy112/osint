@@ -1,0 +1,129 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.color-button{
+  background-color: white;
+  color: black;
+}
+.mat-toolbar.mat-primary {
+  background: #03002e;
+  color: #fff;
+}
+.link {
+  color: black;
+  text-decoration: none;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  height:50px;
+  width: 280px;
+  /* background-color: #f0f0f0; Replace with your desired background color */
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  box-sizing: content-box;
+  height: 50px;
+  width: 280px;
+  /* background-color: #f0f0f0; Replace with your desired background color */
+}
+.modal-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  height:350px;
+  width: 280px;
+  /* background-color: #f0f0f0; Replace with your desired background color */
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.toolbar{
+  background-color: #212529;
+  color: white;
+  border: black;
+  border-bottom: 5px;
+}
+.color-button{
+  background-color: white;
+  color: black;
+}
+body {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background: #FFF;
+  font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";  font-weight: 700;
+  line-height: 24px;
+}
+.News {
+  border: 0ch;
+  font-size: 16px;
+ }
+.Youtube {
+ border: 0ch;
+ font-size: 16px;
+}
+.Flickr {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .wikipedia {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .google {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .telegram {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .dashboard {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .facebook {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .globalsearch {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .elibrary {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .login {
+  border: 0ch;
+  font-size: 16px;
+ }
+ .matMenu {
+  background-color: black !important;
+}
+.matMenu a {
+  color: white !important;
+}
+::ng-deep .mat-menu-panel {
+  background-color: black !important;
+  color: white !important;
+}
+.fullscreen {
+  background-color: transparent;
+  border: 0ch;
+  font-size: 16px;
+  color: white !important;
+ }

@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+node_modules/
+.git/
+docker-compose.yml
+Dockerfile
+.angular/
