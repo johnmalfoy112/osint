@@ -14,15 +14,6 @@
               enableAutoComplete="true" />
             &nbsp;
             &nbsp;
-            <select class="form-select rounded-5 shadow transparent-bg" [(ngModel)]="selectedFolder"
-              (change)="advancedSearch(selectedFolder)">
-              <option value="">All Folders</option>
-              <option value="MEMRI">Memri</option>
-              <option value="START">Start</option>
-              <!-- Add more options as needed -->
-            </select>
-            &nbsp;
-            &nbsp;
             <button class="btn btn-outline-secondary" type="Search" id="Search-addon2" style="height:40px; width: 40px;"
               (click)="search()">
               <!-- search logo -->
@@ -32,7 +23,27 @@
                   d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
               </svg>
             </button>
-
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+              <span class="example-spacer"></span>
+              <mat-menu #sentimentMenu="matMenu"   class="transparent-menu" >
+                <button mat-menu-item value="All" (click)="advancedSearch('')">
+                 All Folder
+                </button>
+                <button mat-menu-item value="positive" (click)="advancedSearch('MEMRI')">
+                 Memri
+                </button>
+                <button mat-menu-item value="negative" (click)="advancedSearch('START')">
+                  Start
+                </button>
+              </mat-menu>
+              <button mat-button [matMenuTriggerFor]="sentimentMenu"
+                class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;">
+                Select Folder
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ export class ElibraryComponent implements OnInit {
     this.elibraryService.getElibraryData(this.searchTerm, this.selectedFolder).subscribe(
       (data) => {
         this.elibraryData = data;
-        console.log(data);
+        // console.log(data);
         // Handle data as needed
       },
       (error) => {
@@ -43,6 +43,7 @@ export class ElibraryComponent implements OnInit {
     );
   }
 
+  //advanced search using mat menu
   advancedSearch(folder: string) {
     this.selectedFolder = folder;
     this.fetchElibraryData(); // Re-fetch data with the updated search term and folder

@@ -1,6 +1,4 @@
-.example-spacer {
-  flex: 1 1 auto;
-}
+
 
 .transparent-bg {
   background-color: transparent !important;
@@ -11,6 +9,11 @@
   color: #fffff0; /* Set placeholder color to #fffff0 */
 }
 /* Add other styles as needed */
+
+.mat-icon {
+  color: #ffffff;
+}
+
 
 .color-button {
   color: black !important;
