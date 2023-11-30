@@ -33,6 +33,9 @@ export class IncidetreportComponent implements OnInit {
   onBlur() {
     this.isFocused = false;
   }
+  isArticleSelected(article: any) {
+    return this.selectedArticles.includes(article);
+  }
 
   //export news as text in zip
   exportNewsAsText(article: any) {
@@ -46,7 +49,6 @@ export class IncidetreportComponent implements OnInit {
   exportAllNewsAsText(searchQuery: string) {
     const zip = new JSZip();
     const promises = [];
-
     for (const article of this.newsData) {
       const promise = this.exportNewsAsText(article)
         .then(() => {
@@ -109,20 +111,15 @@ export class IncidetreportComponent implements OnInit {
       this.newsData.splice(index, 1);
     }
   }
-
-  isArticleSelected(article: any) {
-    return this.selectedArticles.includes(article);
-  }
-
+  
+  //extract language
   extractDistinctLanguagesAndCountries() {
     const uniqueLanguages = new Set<string>();
-
     for (const article of this.incidentData) {
       if (article.language) {
         uniqueLanguages.add(article.language);
       }
     }
-
     this.languages = Array.from(uniqueLanguages);
   }
 
@@ -135,11 +132,6 @@ export class IncidetreportComponent implements OnInit {
 
   }
 
-  //show language in console
-  language(optionlang: string) {
-    this.selectedLanguage = optionlang;
-    // console.warn(this.selectedLanguage);
-  }
 
   ngOnInit(): void { }
 
@@ -173,24 +165,27 @@ export class IncidetreportComponent implements OnInit {
 
   searchNews() {
     this.api.getNews(this.searchTerm, this.selectedLanguage).subscribe(
-      data => {
+      (data) => {
         if (data && data.length > 0) {
           this.newsData = data;
-          // Extract languages from newsData and save to selectedLanguage
-          this.incidentData = data; // Assuming incidentData is set to the received data
-          this.extractDistinctLanguagesAndCountries(); // Extract languages after getting data
+          this.incidentData = data;
+          this.extractDistinctLanguagesAndCountries();
         } else {
-          this.newsData = []; // Clear existing data
-          this.showNoDataMessage = true; // Set a flag to show the "No data found" message
+          this.newsData = [];
+          // this.showNoDataMessage = true; // You can uncomment this if needed
         }
       },
-      error => {
+      (error) => {
         console.error('Error fetching news data:', error);
         // Handle the error if needed
       }
     );
   }
 
+  language(optionlang: string) {
+    this.selectedLanguage = optionlang;
+    this.searchNews(); // Trigger search when language changes
+  }
 
   //keyword dialog box
   openDialog(): void {
