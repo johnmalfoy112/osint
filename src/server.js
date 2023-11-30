@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 
 // Middleware to parse JSON requests+
 app.use(express.json());
-app.use(cors({ origin: 'https://localhost:4200' }));  //change here for ssl or without ssl
+app.use(cors({ origin: 'http://192.168.130.176:4200' }));  //change here for ssl or without ssl
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
@@ -83,7 +83,7 @@ app.use((err, req, res, next) => {
 
 // News Route
 app.post('/api/news', async (req, res) => {
-  console.log("succesful");
+  // console.log("succesful");
   try {
     // Create a new document based on the incoming request data
     const news = new News(req.body);
@@ -98,7 +98,7 @@ app.post('/api/news', async (req, res) => {
 
 //Youtube Route
 app.post('/api/youtube', async (req, res) => {
-  console.log("succesful")
+  // console.log("succesful");
   try {
     // Create a new document based on the incoming request data
     const youtube = new Youtube(req.body);

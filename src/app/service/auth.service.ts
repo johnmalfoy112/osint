@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:3000/api/users';
+  private baseUrl = 'http://192.168.130.176:3000/api/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { this.setupWindowEventListener();}
 
   //register user
   registerUser(userDetails: User): Observable<User> {
@@ -34,6 +34,19 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('islogin');
     // Additional logout logic if needed (e.g., redirect to login page)
+  }
+
+  // Set up window event listener for refresh or closure
+  private setupWindowEventListener(): void {
+    // Listen for 'beforeunload' event (window is about to be unloaded)
+    window.addEventListener('beforeunload', (event) => {
+      this.logout();
+    });
+
+    // Listen for 'unload' event (window is being unloaded)
+    window.addEventListener('unload', (event) => {
+      this.logout();
+    });
   }
 
 
