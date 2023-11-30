@@ -18,6 +18,8 @@ export class ElibraryComponent implements OnInit {
 
   elibraryData: any[] = [];
   searchTerm: string = '';
+  currentPage: number = 1; // Track the current page
+
 
   // Search placeholder functions
   isFocused: boolean = false;
@@ -63,5 +65,7 @@ export class ElibraryComponent implements OnInit {
   search() {
     this.fetchElibraryData(); // Re-fetch data with the updated search term
   }
+
+  
 
 }

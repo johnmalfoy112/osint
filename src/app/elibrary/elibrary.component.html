@@ -27,23 +27,25 @@
             &nbsp;
             &nbsp;
             &nbsp;
-              <span class="example-spacer"></span>
-              <mat-menu #sentimentMenu="matMenu"   class="transparent-menu" >
-                <button mat-menu-item value="All" (click)="advancedSearch('')">
-                 All Folder
-                </button>
-                <button mat-menu-item value="positive" (click)="advancedSearch('MEMRI')">
-                 Memri
-                </button>
-                <button mat-menu-item value="negative" (click)="advancedSearch('START')">
-                  Start
-                </button>
-              </mat-menu>
-              <button mat-button [matMenuTriggerFor]="sentimentMenu"
-                class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;">
-                Select Folder
-                <mat-icon>arrow_drop_down</mat-icon>
+            <span class="example-spacer"></span>
+            <mat-menu #sentimentMenu="matMenu" class="transparent-menu">
+              <button mat-menu-item value="All" (click)="advancedSearch('')">
+                All Folder
               </button>
+              <button mat-menu-item value="positive" (click)="advancedSearch('MEMRI')">
+                Memri
+              </button>
+              <button mat-menu-item value="negative" (click)="advancedSearch('START')">
+                Start
+              </button>
+            </mat-menu>
+            <button mat-button [matMenuTriggerFor]="sentimentMenu"
+              class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
+              style="height:40px; width: 150px;">
+              {{ selectedFolder || 'Select Folder' }}
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+
           </div>
         </div>
       </div>
