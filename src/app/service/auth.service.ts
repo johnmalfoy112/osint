@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private baseUrl = 'http://192.168.130.176:3000/api/users';
+  // private baseUrl = 'https://192.168.130.176:3000/api/users'; // for https
+  private baseUrl = 'http://192.168.130.176:3000/api/users'; // for https
 
   constructor(private http: HttpClient) { this.setupWindowEventListener();}
 

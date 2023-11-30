@@ -6,10 +6,26 @@ const port = 3000;
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const https = require('https');// for https
 
 // Middleware to parse JSON requests+
 app.use(express.json());
-app.use(cors({ origin: 'http://192.168.130.176:4200' }));  //change here for ssl or without ssl
+
+// Allow requests from multiple origins
+const allowedOrigins = ['http://192.168.130.176:4200', 'http://localhost:4200'];  //change here for https or https
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Check if the origin is allowed or if it is a request from the same origin
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(cors(corsOptions)); //change here for ssl or without ssl
+
+// Connecting to MongoDB database
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
@@ -73,11 +89,6 @@ const News = mongoose.model('News', newsSchema);
 const Youtube = mongoose.model('Youtube', youtubeSchema);
 const Elibrary = mongoose.model('Elibrary', elibrarySchema, 'elibrary');
 const User = mongoose.model('User', userSchema);
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
-});
 
 // Define a route to handle POST requests
 
@@ -155,11 +166,9 @@ app.get('/api/elibrary', async (req, res) => {
     const searchTerm = req.query.q;
     const limit = parseInt(req.query.limit) || 50; // Default to 50 if 'limit' is not provided
     let query = {};
-
     if (searchTerm) {
       query = { filename: { $regex: searchTerm, $options: 'i' } };
     }
-
     const elibraryData = await Elibrary.find(query).limit(limit);
     res.json(elibraryData);
   } catch (error) {
@@ -214,6 +223,22 @@ app.post('/api/users/login', async (req, res) => {
   }
 });
 
+// console.log('__dirname:', __dirname);
+// // Specify the path to your SSL/TLS certificates
+// const sslOptions = {
+//   key: fs.readFileSync(path.join(__dirname, '/assets/server.key')),
+//   cert: fs.readFileSync(path.join(__dirname, '/assets/server.crt')),
+// };
+
+// // Create an HTTPS server
+// const server = https.createServer(sslOptions, app);
+
+// Start the server
+// server.listen(port, () => {
+//   console.log(`Server running on https://localhost:${port}`);
+// })
+
+// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-});
+})
