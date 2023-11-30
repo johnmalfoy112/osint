@@ -164,11 +164,18 @@ app.get('/api/news', async (req, res) => {
 app.get('/api/elibrary', async (req, res) => {
   try {
     const searchTerm = req.query.q;
+    const folderName = req.query.folderName; // Extract the folderName from the request query parameters
     const limit = parseInt(req.query.limit) || 50; // Default to 50 if 'limit' is not provided
     let query = {};
+
     if (searchTerm) {
-      query = { filename: { $regex: searchTerm, $options: 'i' } };
+      query.filename = { $regex: searchTerm, $options: 'i' };
     }
+
+    if (folderName) {
+      query.source_short = folderName; // Filter by folderName if provided
+    }
+
     const elibraryData = await Elibrary.find(query).limit(limit);
     res.json(elibraryData);
   } catch (error) {

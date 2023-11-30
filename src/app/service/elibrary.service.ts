@@ -13,10 +13,11 @@ export class ElibraryService {
   constructor(private http: HttpClient) { }
 
   //fetch data from mongo db
-  getElibraryData(searchTerm: string): Observable<any> {
+  getElibraryData(searchTerm: string, folderName: string): Observable<any> {
     const params = new HttpParams()
       .set('q', searchTerm)
-      .set('limit', '50'); // Add this line to set the limit
+      .set('limit', '50') // Add this line to set the limit
+      .set('folderName', folderName); // Add folderName parameter
     return this.http.get<any>(this.apiUrl, { params }).pipe(
       catchError((error) => {
         console.error('Error fetching elibrary data:', error);

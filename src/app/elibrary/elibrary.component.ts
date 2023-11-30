@@ -8,6 +8,8 @@ import { ElibraryService } from '../service/elibrary.service';
 })
 export class ElibraryComponent implements OnInit {
 
+  selectedFolder: string = ''; // Add this property
+
   constructor(private elibraryService: ElibraryService) { }
 
   ngOnInit(): void {
@@ -24,11 +26,11 @@ export class ElibraryComponent implements OnInit {
   }
   onBlur() {
     this.isFocused = false;
-  }
+  } 
 
   //fetch data from mongo
   fetchElibraryData() {
-    this.elibraryService.getElibraryData(this.searchTerm).subscribe(
+    this.elibraryService.getElibraryData(this.searchTerm, this.selectedFolder).subscribe(
       (data) => {
         this.elibraryData = data;
         console.log(data);
@@ -39,6 +41,11 @@ export class ElibraryComponent implements OnInit {
         // Handle error as needed
       }
     );
+  }
+
+  advancedSearch(folder: string) {
+    this.selectedFolder = folder;
+    this.fetchElibraryData(); // Re-fetch data with the updated search term and folder
   }
 
   //get pdf url from local machine
