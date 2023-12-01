@@ -10,7 +10,7 @@ export class NewsapiService {
 
   //News Api URL's & Keys
   private apiUrl = 'https://newsdata.io/api/1/news'; //live-search api url
-  private apiKey ='pub_31327dffa10e6d981c22b766f47ad9b7189df'; // Live search API key   // 'pub_31327dffa10e6d981c22b766f47ad9b7189df','pub_297136fd8848307062cd9e1e40716b38e5a94', pub_27769500773408e29dd09933adbd80b77ff09
+  private apiKey ='pub_297136fd8848307062cd9e1e40716b38e5a94'; // Live search API key   // 'pub_31327dffa10e6d981c22b766f47ad9b7189df','pub_297136fd8848307062cd9e1e40716b38e5a94', pub_27769500773408e29dd09933adbd80b77ff09
   private incidenturl = 'https://newsapi.org/v2/everything';  // incident report api url
   private apikey = '548c78746d234b3d95b0eb26278421c2';  // incident report api key
   private serverUrl = 'http://localhost:3000/api/news';  //mongo db api url don't change this

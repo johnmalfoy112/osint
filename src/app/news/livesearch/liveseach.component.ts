@@ -7,6 +7,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
 import * as Sentiment from 'sentiment';
+import { TranslationService } from '../../service/translation.service';
 @Component({
   selector: 'app-liveseach',
   templateUrl: './liveseach.component.html',
@@ -15,7 +16,7 @@ import * as Sentiment from 'sentiment';
 
 export class LiveseachComponent {
 
-  constructor(private api: NewsapiService) { }
+  constructor(private api: NewsapiService, private translationService: TranslationService) { }
 
   //advnace search menu online
   countries: { name: string, code: string }[] = [
@@ -323,6 +324,7 @@ export class LiveseachComponent {
       });
     });
   }
+  
 
   //export news as pdf in zip
   // exportAllNewsAsPdf(searchQuery: string) {
@@ -537,6 +539,16 @@ export class LiveseachComponent {
     // console.warn(this.languageCode);
   }
 
+  //translation
+  onLanguageSelected(languageCode: string, query: string) {
+    // Translate the search text
+    this.translationService.translateText(query, languageCode).subscribe((translatedText) => {
+      // Now, use the translated text to perform your search
+      this.searchNews(translatedText, languageCode, this.countryCode);
+      console.log(translatedText);
+    });
+  }
+
   ngOnInit(): void { }
 
   // search via keyword, countrycode and languagecode api
@@ -544,7 +556,10 @@ export class LiveseachComponent {
     this.api.topheadlines(query, countrycode, languagecode).subscribe(data => {
       this.newsData = data;
       this.nextPageToken = data.nextPage;
-      // console.log("News Data:", data);
+      console.log("News Data:", data);
+      console.log(`Searching for translated text: ${query}`);
+      console.log(`Language Code: ${this.languageCode}`);
+      console.log(`Country Code: ${this.countryCode}`);
       // console.log(this.nextPageToken);
       if (data && data.status === "success") {
         this.articles = data.results;
