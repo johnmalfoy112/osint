@@ -1,5 +1,3 @@
-// auth.service.ts
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -34,9 +32,6 @@ export class AuthService {
   }
 
   getLoggedInUser(): User | null {
-    // You need to implement the logic to get the logged-in user
-    // For example, you might retrieve it from localStorage or a BehaviorSubject
-    // This is just a placeholder, replace it with your actual logic
     const userJson = localStorage.getItem('loggedInUser');
     return userJson ? JSON.parse(userJson) : null;
   }

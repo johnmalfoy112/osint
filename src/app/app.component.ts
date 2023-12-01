@@ -1,5 +1,3 @@
-// app.component.ts
-
 import { Component } from '@angular/core';
 import { FullscreenService } from './service/fullscreen.service';
 import { AuthService } from './service/auth.service';
