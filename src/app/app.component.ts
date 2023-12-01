@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FullscreenService } from './service/fullscreen.service';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'OSINT3.0';
   isAdmin: boolean = false;
@@ -16,8 +18,8 @@ export class AppComponent {
   constructor(
     private fullscreenService: FullscreenService,
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {  }
 
   ngOnInit() {
     const loggedInUser = this.authService.getLoggedInUser();

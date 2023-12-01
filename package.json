@@ -31,6 +31,7 @@
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-translate/core": "^15.0.0",
+    "angular-disable-browser-back-button": "^2.0.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",

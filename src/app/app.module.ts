@@ -52,6 +52,7 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { ElibraryComponent } from './elibrary/elibrary.component';
 import { RegisterComponent } from './register/register.component';
 import { NgChartsModule } from 'ng2-charts';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +104,7 @@ import { NgChartsModule } from 'ng2-charts';
     MatFormFieldModule,
     ReactiveFormsModule,
     NgChartsModule,
+    BackButtonDisableModule.forRoot()
   ],
   providers: [NewsapiService,YouTubeService,FlickrService,WikiService,GoogleSearchService],
   bootstrap: [AppComponent,IncidetreportComponent,LiveseachComponent,YouTubeSearchComponent,FlickrComponent,WikipediaComponent,GoogleSearchComponent, TelegramComponent]
