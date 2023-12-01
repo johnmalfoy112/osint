@@ -101,3 +101,18 @@ button:hover {
   color: white;
   cursor: pointer;
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+}
+
+.logo-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain; /* This ensures the image retains its aspect ratio */
+}
