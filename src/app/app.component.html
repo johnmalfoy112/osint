@@ -71,13 +71,13 @@
     &nbsp;
     <button mat-button *ngIf="isAdmin; else regularUserMenu" [matMenuTriggerFor]="adminMenu"
       style="background-color: transparent; color: white;">
-      Welcome, Admin
+      Welcome
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <ng-template #regularUserMenu>
       <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="isAuthenticated()"
         style="background-color: transparent; color: white;">
-        Welcome, {{ username }}
+        Welcome
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
       <mat-menu #userMenu="matMenu" class="matMenu">
