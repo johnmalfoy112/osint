@@ -324,7 +324,7 @@ export class LiveseachComponent {
       });
     });
   }
-  
+
 
   //export news as pdf in zip
   // exportAllNewsAsPdf(searchQuery: string) {
@@ -601,6 +601,19 @@ export class LiveseachComponent {
       this.allArticles = this.allArticles.concat(newArticles);
       // Update the nextPageToken
       this.nextPageToken = pagetoken;
+      //mongo db api
+      for (const article of this.articles) {
+        // Inside searchNews
+        this.api.saveToMongoDB(article, query).subscribe({
+          next: response => {
+            // console.log('Data saved to MongoDB:', response);
+          },
+          error: error => {
+            // console.error('Error saving data to MongoDB:', error);
+          }
+
+        });
+      }
       // Extract languages and countries again
       this.extractDistinctLanguagesAndCountries();
     });

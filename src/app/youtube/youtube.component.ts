@@ -228,15 +228,55 @@ export class YouTubeSearchComponent {
   }
 
 // load more button
-  loadMore() {
-    if (this.nextpagetoken) {
-      this.youtubeService.loadMore(this.nextpagetoken.toString(), this.searchQuery, this.maxResults).subscribe(data => {
-        const newVideos = data.items;
-        this.videos = [...this.videos, ...newVideos]; // Concatenate the new videos with the existing ones
-        this.nextpagetoken = data.nextPageToken; // Save the new nextPageToken
+loadMore() {
+  if (this.nextpagetoken) {
+    this.youtubeService.loadMore(this.nextpagetoken.toString(), this.searchQuery, this.maxResults).subscribe(data => {
+      const newVideos = data.items;
+
+      newVideos.forEach(video => {
+        const videoId = video.id.videoId;
+        if (videoId) {
+          this.youtubeService.getVideoDetails(videoId).subscribe(
+            (details: VideoDetails) => {
+              if (details && details.items && details.items[0] && details.items[0].snippet && details.items[0].snippet.description) {
+                video.fullDescription = details.items[0].snippet.description;
+                video.tags = details.items[0].snippet.tags;
+
+                let yt = {
+                  "videoID": "https://www.youtube.com/watch?v=" + videoId,
+                  "title": video.snippet.title,
+                  "channelName": video.snippet.channelTitle,
+                  "publishedDate": video.snippet.publishedAt,
+                  "description": video.snippet.description,
+                  "fullDescription": video.fullDescription,
+                  "searchQuery": this.searchQuery,
+                  "tags": video.tags
+                };
+
+                this.youtubeService.saveToMongoDB(yt).subscribe({
+                  next: response => {
+                    // console.log('Data saved to MongoDB:', response);
+                  },
+                  error: error => {
+                    // console.error('Error saving data to MongoDB:', error);
+                  }
+                });
+              }
+            },
+            (error) => {
+              // console.error(`Error fetching video details for video ID ${videoId}:`, error);
+            }
+          );
+        } else {
+          // console.error(`Invalid video ID for video:`, video);
+        }
       });
-    }
+
+      this.videos = [...this.videos, ...newVideos]; // Concatenate the new videos with the existing ones
+      this.nextpagetoken = data.nextPageToken; // Save the new nextPageToken
+    });
   }
+}
 
   //youtube channel video from channel search
   showChannelVideos(channel: any) {
