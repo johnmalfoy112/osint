@@ -58,7 +58,7 @@
       <mat-icon style="color: yellow;">help_outline</mat-icon> Neutral
     </button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="sentimentMenu" 
+  <button mat-button [matMenuTriggerFor]="sentimentMenu"  *ngIf="videos.length > 0"
     class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;" >
     Sentiment
     <mat-icon>arrow_drop_down</mat-icon>

@@ -30,7 +30,7 @@
   <span class="example-spacer"></span>
   <!-- language menu button -->
   <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
-    [matMenuTriggerFor]="Language" style="height:40px; width: 100px;" [disabled]="incidentData.length === 0">
+    [matMenuTriggerFor]="Language" style="height:40px; width: 100px;"  *ngIf="incidentData.length > 0">
     {{ selectedLanguage  ? selectedLanguage : 'Language' }}
   </button>
   <mat-menu #Language="matMenu">
@@ -45,20 +45,20 @@
   &nbsp;
   <!-- keyword button -->
   <button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" mat-raised-button
-    (click)="openDialog()" style="height:40px; width: 90px; background-color: transparent;" [disabled]="incidentData.length === 0">
+    (click)="openDialog()" style="height:40px; width: 90px; background-color: transparent;" >
     Keywords</button>
   &nbsp;
   &nbsp;
   <!-- export news -->
   <button mat-button class="btn text-bg-light p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
-    (click)="exportAllNewsAsText(search.value)" [disabled]="incidentData.length === 0">
+    (click)="exportAllNewsAsText(search.value)" *ngIf="incidentData.length > 0">
     <img src="./../../../assets/export.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button>
   &nbsp;
   &nbsp;
   <!-- export as pdf button -->
   <button mat-button class="btn text-bg-light p-3 py-2 btn-light rounded-5 body-dropdown " style="width: 40px; height: 40px;"
-    (click)="exportAllNewsAsPdf(search.value)" [disabled]="incidentData.length === 0">
+    (click)="exportAllNewsAsPdf(search.value)" *ngIf="incidentData.length > 0">
     <img src="./../../../assets/pdf.svg" alt="Export Icon" style="width: 20px; height: 20px;">
   </button>
   &nbsp;
