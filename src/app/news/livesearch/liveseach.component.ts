@@ -556,10 +556,10 @@ export class LiveseachComponent {
     this.api.topheadlines(query, countrycode, languagecode).subscribe(data => {
       this.newsData = data;
       this.nextPageToken = data.nextPage;
-      console.log("News Data:", data);
-      console.log(`Searching for translated text: ${query}`);
-      console.log(`Language Code: ${this.languageCode}`);
-      console.log(`Country Code: ${this.countryCode}`);
+      // console.log("News Data:", data);
+      // console.log(`Searching for translated text: ${query}`);
+      // console.log(`Language Code: ${this.languageCode}`);
+      // console.log(`Country Code: ${this.countryCode}`);
       // console.log(this.nextPageToken);
       if (data && data.status === "success") {
         this.articles = data.results;
