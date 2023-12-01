@@ -2,7 +2,7 @@
 <ngx-loading-bar [includeSpinner]='false' height="4px"></ngx-loading-bar>
 <p>
   <mat-toolbar class="toolbar">
-    <a class="navbar-brand" >  
+    <a class="navbar-brand">
       <!-- logo -->
       <img src="../assets/logo.svg" alt="Logo" width="50" height="50">
     </a>
@@ -14,14 +14,17 @@
       &nbsp;
     </a>
     <!-- menu button -->
-    <button class="dashboard" [routerLink]="['/dashboard']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="dashboard" [routerLink]="['/dashboard']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Dashboard</button>
     &nbsp;
     &nbsp;
-    <button class="globalsearch" [routerLink]="['/globalsearch']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="globalsearch" [routerLink]="['/globalsearch']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Global Search</button>
     &nbsp;
-    <button mat-button class="News" [matMenuTriggerFor]="News" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button mat-button class="News" [matMenuTriggerFor]="News" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       News</button>
     <mat-menu #News="matMenu" class="matMenu">
       <!-- menu items -->
@@ -29,19 +32,23 @@
       <button mat-menu-item><a class="link" [routerLink]="['/incidentreport']">Incident Report</a></button>
     </mat-menu>
     &nbsp;
-    <button class="Youtube" [routerLink]="['/youtube']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="Youtube" [routerLink]="['/youtube']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Youtube</button>
     &nbsp;
     &nbsp;
-    <button class="Flickr" [routerLink]="['/flickr']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="Flickr" [routerLink]="['/flickr']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Flickr</button>
     &nbsp;
     &nbsp;
-    <button class="wikipedia" [routerLink]="['/wikipedia']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="wikipedia" [routerLink]="['/wikipedia']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Wikipedia</button>
     &nbsp;
     &nbsp;
-    <button class="google" [routerLink]="['/google']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="google" [routerLink]="['/google']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       Google</button>
     &nbsp;
     &nbsp;
@@ -53,7 +60,8 @@
       Facebook</button>
     &nbsp;
     &nbsp; -->
-    <button class="elibrary" [routerLink]="['/elibrary']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button class="elibrary" [routerLink]="['/elibrary']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       E-library</button>
     <span class="example-spacer"></span>
     <button class="fullscreen" (click)="toggleFullscreen()" style="width: 30px; height: 30px;">
@@ -61,13 +69,24 @@
     </button>
     &nbsp;
     &nbsp;
-    <ng-container *ngIf="isAuthenticated(); else loginButton">
-      <button class="logout" (click)="logout()" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
-        Logout
+    <button mat-button *ngIf="isAdmin; else regularUserMenu" [matMenuTriggerFor]="adminMenu"
+      style="background-color: transparent; color: white;">
+      Welcome, Admin
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <ng-template #regularUserMenu>
+      <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="isAuthenticated()"
+        style="background-color: transparent; color: white;">
+        Welcome, {{ username }}
+        <mat-icon>arrow_drop_down</mat-icon>
       </button>
-    </ng-container>
-    <ng-template #loginButton>
+      <mat-menu #userMenu="matMenu" class="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
     </ng-template>
+    <mat-menu #adminMenu="matMenu" class="matMenu">
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
   </mat-toolbar>
 </p>
 <!-- navbar closes -->

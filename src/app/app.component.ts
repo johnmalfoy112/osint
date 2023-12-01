@@ -1,6 +1,8 @@
+// app.component.ts
+
 import { Component } from '@angular/core';
 import { FullscreenService } from './service/fullscreen.service';
-import { AuthService } from './service/auth.service';  // Import AuthService
+import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,13 +13,23 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'OSINT3.0';
 
+  isAdmin: boolean = false;
+  username: string = '';
+
   constructor(
     private fullscreenService: FullscreenService,
     private authService: AuthService,
-    private router: Router  // Inject Router
+    private router: Router
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const loggedInUser = this.authService.getLoggedInUser();
+
+    if (loggedInUser) {
+      this.isAdmin = loggedInUser.role === 'admin';
+      this.username = loggedInUser.email;
+    }
+  }
 
   toggleFullscreen() {
     const element = document.documentElement;
@@ -28,7 +40,6 @@ export class AppComponent {
     return this.fullscreenService.getFullscreenStatus();
   }
 
-  // Add these methods
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
@@ -38,7 +49,4 @@ export class AppComponent {
     // Redirect to the login page after logout
     this.router.navigate(['/login']);
   }
-
-  
-  
 }
