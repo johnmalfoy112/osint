@@ -51,6 +51,7 @@ import { LoginComponent } from './login/login.component';
 import { FacebookComponent } from './facebook/facebook.component';
 import { ElibraryComponent } from './elibrary/elibrary.component';
 import { RegisterComponent } from './register/register.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,7 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     FacebookComponent,
     ElibraryComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     RouterModule,
@@ -100,7 +101,8 @@ import { RegisterComponent } from './register/register.component';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule,
   ],
   providers: [NewsapiService,YouTubeService,FlickrService,WikiService,GoogleSearchService],
   bootstrap: [AppComponent,IncidetreportComponent,LiveseachComponent,YouTubeSearchComponent,FlickrComponent,WikipediaComponent,GoogleSearchComponent, TelegramComponent]

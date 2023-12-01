@@ -81,6 +81,5 @@ saveToMongoDB(newsData: any, searchQuery: string): Observable<any> {
   return this._http.post(this.serverUrl, newsData);
 }
 
-
 }
 
