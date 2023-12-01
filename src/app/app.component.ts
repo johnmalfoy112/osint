@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'OSINT3.0';
-
   isAdmin: boolean = false;
   username: string = '';
 
@@ -22,7 +21,6 @@ export class AppComponent {
 
   ngOnInit() {
     const loggedInUser = this.authService.getLoggedInUser();
-
     if (loggedInUser) {
       this.isAdmin = loggedInUser.role === 'admin';
       this.username = loggedInUser.email;

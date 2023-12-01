@@ -40,7 +40,6 @@ export class AuthService {
     window.addEventListener('beforeunload', (event) => {
       this.logout();
     });
-
     window.addEventListener('unload', (event) => {
       this.logout();
     });

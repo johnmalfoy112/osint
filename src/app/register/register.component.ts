@@ -52,7 +52,7 @@ export class RegisterComponent {
   //submit button function
   submitDetails() {
     const postData = { ...this.registerForm.value };
-    console.log(postData);
+    // console.log(postData);
     delete postData.confirmPassword;
     // Assuming userDetails is an object containing user details
     this.authService.registerUser(postData as User).subscribe(
@@ -67,7 +67,6 @@ export class RegisterComponent {
         // Handle registration error
       }
     );
-
   }
 
 }
