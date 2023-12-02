@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsapiService } from '../service/newsapi.service';
+import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,12 +21,25 @@ export class DashboardComponent implements OnInit {
   isSourceDataLoaded: boolean = false;
   isLanguageDataLoaded: boolean = false;
   showTables: boolean = false;
+  showCharts: boolean = false;
   chartData: any[] = [];
   chartLabels: string[] = [];
   chartCountryLabels: string[] = [];
   chartCountryData: number[] = [];
   chartLanguageLabels: string[] = [];
   chartLanguageData: number[] = [];
+  public barChartLegend = true;
+  public barChartPlugins = [];
+  itemsToShow = 15;
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: [
+      { data: [], label: 'News Count by Source' }
+    ]
+  };
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: false,
+  };
 
   constructor(private newsService: NewsapiService) { }
 
@@ -34,15 +48,23 @@ export class DashboardComponent implements OnInit {
   }
 
   //load more button data
-  loadMoreButtonClicked(table: string) {
-    if (table === 'source') {
-      this.loadMoreSource = !this.loadMoreSource;
-    } else if (table === 'country') {
-      this.loadMoreCountry = !this.loadMoreCountry;
-    } else if (table === 'language') {
-      this.loadMoreLanguage = !this.loadMoreLanguage;
-    }
+//load more button data
+loadMoreButtonClicked(table: string) {
+  if (table === 'source') {
+    // Update the number of items to show for the source table
+    this.itemsToShow = this.loadMoreSource ? 15 : this.sourceLabels.length;
+    this.loadMoreSource = !this.loadMoreSource;
+  } else if (table === 'country') {
+    // Update the number of items to show for the country table
+    this.itemsToShow = this.loadMoreCountry ? 15 : this.chartCountryLabels.length;
+    this.loadMoreCountry = !this.loadMoreCountry;
+  } else if (table === 'language') {
+    // Update the number of items to show for the language table
+    this.itemsToShow = this.loadMoreLanguage ? 15 : this.chartLanguageLabels.length;
+    this.loadMoreLanguage = !this.loadMoreLanguage;
   }
+}
+
 
   //fetch data from mongo db
   private fetchNewsData() {
@@ -57,7 +79,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  //sorce table data
+  //source table data
   private countNewsBySource() {
     this.newsData.forEach((news) => {
       const sourceId = news.source_id;
@@ -79,6 +101,12 @@ export class DashboardComponent implements OnInit {
     const topLabels = sortedLabels.slice(0, 15);
     this.chartLabels = topLabels;
     this.chartData = topLabels.map(label => this.newsCountBySource[label]);
+    this.barChartData = {
+      labels: this.chartLabels,
+      datasets: [
+        { data: this.chartData, label: 'News Count by Source' }
+      ]
+    };
     console.log('Chart Labels:', this.chartLabels);
     console.log('Chart Data:', this.chartData);
   }
@@ -114,6 +142,12 @@ export class DashboardComponent implements OnInit {
     const topCountries = sortedCountries.slice(0, 15);
     this.chartCountryLabels = topCountries;
     this.chartCountryData = topCountries.map(country => this.newsCountByCountry[country].count);
+    this.barChartData = {
+      labels: this.chartCountryLabels,
+      datasets: [
+        { data: this.chartCountryData, label: 'News Count by Country' }
+      ]
+    };
     console.log('Chart Country Labels:', this.chartCountryLabels);
     console.log('Chart Country Data:', this.chartCountryData);
   }
@@ -129,6 +163,7 @@ export class DashboardComponent implements OnInit {
       this.newsCountByLanguage[language] = languageData;
     });
   }
+
   private countOccurrences(data: any[], key: string): any {
     const counts: any = {};
     data.forEach(item => {
@@ -144,9 +179,13 @@ export class DashboardComponent implements OnInit {
     const topLanguages = sortedLanguages.slice(0, 15);
     this.chartLanguageLabels = topLanguages;
     this.chartLanguageData = topLanguages.map(language => this.newsCountByLanguage[language]);
+    this.barChartData = {
+      labels: this.chartLanguageLabels,
+      datasets: [
+        { data: this.chartLanguageData, label: 'News Count by Language' }
+      ]
+    };
     console.log('Chart Language Labels:', this.chartLanguageLabels);
     console.log('Chart Language Data:', this.chartLanguageData);
   }
-
-
 }
