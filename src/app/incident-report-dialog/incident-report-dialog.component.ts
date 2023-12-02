@@ -6,13 +6,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './incident-report-dialog.component.html',
 })
 export class IncidentReportDialogComponent {
+
   newKeyword: string = '';
   newGroup: string = '';
   keywords: { keyword: string; group: string }[] = [];
   groups: string[] = [];
   selectedKeyword: string = '';
   selectedGroup: string = '';
-  selectedKeywords: { keyword: string; group: string }[] = [];
+  selectedKeywords: { keyword: string; group: string }[] = [];  // Modified to store selected keywords
   keywordList: { keyword: string; group: string }[] = [];
 
   constructor(public dialogRef: MatDialogRef<IncidentReportDialogComponent>) {}
@@ -23,7 +24,6 @@ export class IncidentReportDialogComponent {
     if (storedKeywords) {
       this.keywords = JSON.parse(storedKeywords);
     }
-
     const storedGroups = localStorage.getItem('groups');
     if (storedGroups) {
       this.groups = JSON.parse(storedGroups);
@@ -39,9 +39,9 @@ export class IncidentReportDialogComponent {
   closeDialog(): void {
     // Save data to local storage before closing the dialog
     this.saveToLocalStorage();
-    this.dialogRef.close();
+    // Pass the selected keywords to the parent component before closing the dialog
+    this.dialogRef.close(this.selectedKeywords);
   }
-
   addKeyword(): void {
     if (this.newKeyword.trim() !== '' && this.selectedGroup !== '') {
       this.keywords.push({ keyword: this.newKeyword, group: this.selectedGroup });
@@ -81,7 +81,7 @@ export class IncidentReportDialogComponent {
     if (index !== -1) {
       this.keywords.splice(index, 1);
     }
-}
+  }
 
   deleteGroup(group: string): void {
     const index = this.groups.indexOf(group);
@@ -98,4 +98,5 @@ export class IncidentReportDialogComponent {
       this.selectedKeywords.push(keyword);
     }
   }
+
 }

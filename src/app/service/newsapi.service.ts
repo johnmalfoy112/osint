@@ -19,67 +19,59 @@ export class NewsapiService {
   //live-search api
   topheadlines(query: string, countrycode?: string, languagecode?: string,): Observable<any> {
     let params = new HttpParams().set('apikey', this.apiKey).set('image', 1).set('q', query);
-
     if (countrycode) {
       params = params.set('country', countrycode);
     }
-
     if (languagecode) {
       params = params.set('language', languagecode);
     }
-
     return this._http.get<any>(this.apiUrl, { params });
   }
 
   //livesearch nextpage
   nextpage(query: string, nextpagetoken: string): Observable<any> {
     let params = new HttpParams().set('apikey', this.apiKey).set('image', 1).set('q', query);
-
     if (nextpagetoken) {
       params = params.set('page', nextpagetoken);
     }
-
     return this._http.get<any>(this.apiUrl, { params });
   }
 
-
   //incident-report api
-
   // incidentews(query: string, languagecode?: string ): Observable<any> {
   //   let params = new HttpParams().set('apikey', this.apikey).set('q', query);
-
   //   if (languagecode) {
   //     params = params.set('language', languagecode);
   //   }
-
   //     return this._http.get<any>(this.incidenturl , { params });
   // }
 
   //Incident-report api offline
-
   getNews(query: string, language: string): Observable<any[]> {
     let params = new HttpParams();
-
     if (query) {
       params = params.set('q', query);
       // console.log(query);
     }
-
     if (language) {
       params = params.set('language', language);
       // console.log(language);
     }
-
     return this._http.get<any[]>(this.serverUrl, { params });
   }
+
+  getNewsByKeywords(keywords: string[]): Observable<any> {
+    const keywordsString = keywords.join(',');
+    const url = `${this.serverUrl}/news/${keywordsString}`;
+    return this._http.get(url);
+  }
+ 
 
 // mongodb api
 saveToMongoDB(newsData: any, searchQuery: string): Observable<any> {
   newsData.country = newsData.country[0];
   newsData.searchQuery = searchQuery; // Add the searchQuery field
-
   return this._http.post(this.serverUrl, newsData);
 }
 
 }
-

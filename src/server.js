@@ -181,7 +181,6 @@ app.get('/api/elibrary', async (req, res) => {
   }
 });
 
-
 //pdf search
 app.get('/api/pdf/:filename', (req, res) => {
   const filename = req.params.filename;
@@ -227,16 +226,35 @@ app.post('/api/users/login', async (req, res) => {
   }
 });
 
+// API Endpoint to fetch news from MongoDB based on keywords
+app.get('/api/news/:keywords', (req, res) => {
+  const keywords = req.params.keywords.split(',');
+  News.find(
+    {
+      $or: [
+        { title: { $regex: keywords.join('|'), $options: 'i' } },
+      ]
+    },
+    (error, result) => {
+      if (error) {
+        console.error('Error fetching data from MongoDB:', error);
+        res.status(500).send(error);
+      } else {
+        console.log('Data fetched from MongoDB:', result);
+        res.status(200).send(result);
+      }
+    }
+  );
+});
+
 // console.log('__dirname:', __dirname);
 // // Specify the path to your SSL/TLS certificates
 // const sslOptions = {
 //   key: fs.readFileSync(path.join(__dirname, '/assets/server.key')),
 //   cert: fs.readFileSync(path.join(__dirname, '/assets/server.crt')),
 // };
-
 // // Create an HTTPS server
 // const server = https.createServer(sslOptions, app);
-
 // Start the server
 // server.listen(port, () => {
 //   console.log(`Server running on https://localhost:${port}`);

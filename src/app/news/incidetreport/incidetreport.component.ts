@@ -17,13 +17,14 @@ export class IncidetreportComponent implements OnInit {
 
   constructor(private api: NewsapiService, public dialog: MatDialog) { }
 
-  newsData: any;  //newsdata store
-  selectedLanguage: string;  //selected language
-  incidentData: any = [];      //display headlines data
+  newsData: any;
+  selectedLanguage: string;
+  incidentData: any = [];
   searchTerm: string = '';
   languages: string[] = [];
   selectedArticles: any[] = [];
   showNoDataMessage: boolean = false;
+  selectedKeywords: { keyword: string; group: string }[] = [];  // Modified this line
 
   // search placeholder functions
   isFocused: boolean = false;
@@ -111,8 +112,8 @@ export class IncidetreportComponent implements OnInit {
       this.newsData.splice(index, 1);
     }
   }
-  
-  //extract language
+
+  // Extract language
   extractDistinctLanguagesAndCountries() {
     const uniqueLanguages = new Set<string>();
     for (const article of this.incidentData) {
@@ -123,21 +124,14 @@ export class IncidetreportComponent implements OnInit {
     this.languages = Array.from(uniqueLanguages);
   }
 
-
-  //show search query
+  // Show search query
   getValue(val: string) {
-    // console.warn(val);
     this.searchTerm = val;
-    // console.log(this.searchTerm);
-
   }
-
 
   ngOnInit(): void { }
 
-
   //incident search online api
-
   // searchNews(query: string, selectedLanguage: string) {
   //   this.api.incidentews(query, selectedLanguage).subscribe(data => {
   //     this.newsData = data.articles;
@@ -145,7 +139,6 @@ export class IncidetreportComponent implements OnInit {
   //     // console.log(this.newsData);
   // console.log(data.articles[0].title);
   // console.log(this.articles);
-
   //save to mongodb api
   //     for (const article of this.newsData) {
   //       this.api.saveToMongoDB(article).subscribe({
@@ -162,7 +155,6 @@ export class IncidetreportComponent implements OnInit {
   // }
 
   //Incident news offline api
-
   searchNews() {
     this.api.getNews(this.searchTerm, this.selectedLanguage).subscribe(
       (data) => {
@@ -182,21 +174,76 @@ export class IncidetreportComponent implements OnInit {
     );
   }
 
+  // Modify the language method
   language(optionlang: string) {
     this.selectedLanguage = optionlang;
-    this.searchNews(); // Trigger search when language changes
+    this.fetchNewsByKeywords(); // Modified this line
   }
 
-  //keyword dialog box
+  // Add a method to search news by keywords
+  searchNewsByKeywords(keywords: string[]) {
+    this.api.getNewsByKeywords(keywords).subscribe(
+      (data) => {
+        if (data && data.length > 0) {
+          this.newsData = data;
+          this.incidentData = data;
+          this.extractDistinctLanguagesAndCountries();
+        } else {
+          this.newsData = [];
+          // Handle the case when no data is found
+        }
+      },
+      (error) => {
+        console.error('Error fetching news data by keywords:', error);
+        // Handle the error if needed
+      }
+    );
+  }
+
+  // Fetch news based on selected keywords
+  fetchNewsByKeywords() {
+    const keywords = this.selectedKeywords.map(keyword => keyword.keyword);
+    this.api.getNews(keywords.join(','), this.selectedLanguage).subscribe(
+      (data) => {
+        if (data && data.length > 0) {
+          this.newsData = data;
+          this.incidentData = data;
+          this.extractDistinctLanguagesAndCountries();
+        } else {
+          this.newsData = [];
+        }
+      },
+      (error) => {
+        console.error('Error fetching news data:', error);
+      }
+    );
+  }
+
+  // Function to add or remove a keyword from the selected list
+  toggleSelectedKeyword(keywordObj: { keyword: string; group: string }) {
+    const index = this.selectedKeywords.findIndex(k => k.keyword === keywordObj.keyword && k.group === keywordObj.group);
+    if (index !== -1) {
+      this.selectedKeywords.splice(index, 1);
+    } else {
+      this.selectedKeywords.push(keywordObj);
+    }
+  }
+
+  // Method to open the keyword dialog
   openDialog(): void {
     const dialogRef = this.dialog.open(IncidentReportDialogComponent, {
-      width: '1000px', // Adjust the width as needed
+      width: '1000px',
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
+    // Handle the dialog closed event
+    dialogRef.afterClosed().subscribe((selectedKeywords: { keyword: string; group: string }[]) => {
+      // Check if selectedKeywords is not undefined
+      if (selectedKeywords) {
+        // Update the selectedKeywords in the component
+        this.selectedKeywords = selectedKeywords;
+        // Perform the news search with the selected keywords
+        this.searchNews();
+      }
     });
   }
-
 
 }
