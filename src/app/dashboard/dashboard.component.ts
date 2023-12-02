@@ -19,7 +19,9 @@ export class DashboardComponent implements OnInit {
   isCountryDataLoaded: boolean = false;
   isSourceDataLoaded: boolean = false;
   isLanguageDataLoaded: boolean = false;
-  showTables: boolean = false; // Add this line
+  showTables: boolean = false;
+  chartData: any[] = [];
+  chartLabels: string[] = [];
 
   constructor(private newsService: NewsapiService) {}
 
@@ -43,6 +45,7 @@ export class DashboardComponent implements OnInit {
       this.countNewsBySource();
       this.countNewsByCountry();
       this.countNewsByLanguage();
+      this.updateChartData();
     });
   }
 
@@ -58,6 +61,13 @@ export class DashboardComponent implements OnInit {
       this.isSourceDataLoaded = true;
     });
   }
+
+  private updateChartData() {
+    // Example: Update chart data based on newsCountBySource
+    this.chartLabels = Object.keys(this.newsCountBySource);
+    this.chartData = Object.values(this.newsCountBySource);
+  }
+
 
   private countNewsByCountry() {
     this.newsData.forEach((news) => {
