@@ -1,10 +1,75 @@
-<div style="display: flex; justify-content: center; align-items: flex-start; height: 100vh;">
-    <div style="text-align: center;">
-      <h1>Welcome to OSINT</h1>
+<div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
+  <div>
+    <h1>Welcome to OSINT</h1>
+  </div>
+  <div (click)="showTables = !showTables" style="align-self: flex-start; margin-left: 20px;">
+    <h2>News Visualization<mat-icon>arrow_drop_down</mat-icon></h2>
+    <div *ngIf="showTables">
+      <div>
+        <h3>News Count by Country</h3>
+        <table>
+          <tr>
+            <th>Country</th>
+            <th>Count</th>
+            <th>Sources</th>
+            <th>Languages</th>
+          </tr>
+          <tr *ngFor="let country of newsCountByCountry | keyvalue; let i = index"
+            [hidden]="i >= 15 && !loadMoreCountry">
+            <td>{{ country.key }}</td>
+            <td>{{ country.value.count }}</td>
+            <td>{{ country.value.sources.join(', ') }}</td>
+            <td>{{ country.value.languages.join(', ') }}</td>
+          </tr>
+        </table>
+        &nbsp;
+        <button *ngIf="isCountryDataLoaded" (click)="loadMoreCountry = !loadMoreCountry"
+          style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
+          {{ loadMoreCountry ? 'Show Less' : 'Load More' }}
+        </button>
+      </div>
+      &nbsp;
+      &nbsp;
+      <div style="display: flex; flex-wrap: wrap;">
+        <div style="width: 50%;">
+          <h3>News Count by Source</h3>
+          <table>
+            <tr>
+              <th>Source</th>
+              <th>Count</th>
+            </tr>
+            <tr *ngFor="let source of newsCountBySource | keyvalue; let i = index"
+              [hidden]="i >= 15 && !loadMoreSource">
+              <td>{{ source.key }}</td>
+              <td>{{ source.value }}</td>
+            </tr>
+          </table>
+          &nbsp;
+          <button *ngIf="isSourceDataLoaded" (click)="loadMoreSource = !loadMoreSource"
+            style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
+            {{ loadMoreSource ? 'Show Less' : 'Load More' }}
+          </button>
+        </div>
+        <div style="width: 50%;">
+          <h3>News Count by Language</h3>
+          <table>
+            <tr>
+              <th>Language</th>
+              <th>Count</th>
+            </tr>
+            <tr *ngFor="let language of newsCountByLanguage | keyvalue; let i = index"
+              [hidden]="i >= 15 && !loadMoreLanguage">
+              <td>{{ language.key }}</td>
+              <td>{{ language.value }}</td>
+            </tr>
+          </table>
+          &nbsp;
+          <button *ngIf="isLanguageDataLoaded" (click)="loadMoreLanguage = !loadMoreLanguage"
+            style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
+            {{ loadMoreLanguage ? 'Show Less' : 'Load More' }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <div>
-   
-    <!-- Add more charts as needed -->
-  </div>
+</div>

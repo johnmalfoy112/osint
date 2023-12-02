@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,7 +65,19 @@ export class NewsapiService {
     const url = `${this.serverUrl}/news/${keywordsString}`;
     return this._http.get(url);
   }
- 
+
+  getAllNewsFromMongo(): Observable<any[]> {
+    return this._http.get<any[]>(this.serverUrl).pipe(
+      tap(_ => console.log('Fetching all news from MongoDB')),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return throwError(error);
+  }
+
 
 // mongodb api
 saveToMongoDB(newsData: any, searchQuery: string): Observable<any> {

@@ -8,6 +8,8 @@ import * as JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
 import * as Sentiment from 'sentiment';
 import { TranslationService } from '../../service/translation.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-liveseach',
   templateUrl: './liveseach.component.html',
