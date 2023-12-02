@@ -22,13 +22,18 @@ export class DashboardComponent implements OnInit {
   showTables: boolean = false;
   chartData: any[] = [];
   chartLabels: string[] = [];
+  chartCountryLabels: string[] = [];
+  chartCountryData: number[] = [];
+  chartLanguageLabels: string[] = [];
+  chartLanguageData: number[] = [];
 
-  constructor(private newsService: NewsapiService) {}
+  constructor(private newsService: NewsapiService) { }
 
   ngOnInit() {
     this.fetchNewsData();
   }
 
+  //load more button data
   loadMoreButtonClicked(table: string) {
     if (table === 'source') {
       this.loadMoreSource = !this.loadMoreSource;
@@ -39,16 +44,20 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  //fetch data from mongo db
   private fetchNewsData() {
     this.newsService.getNews('', '').subscribe((data: any[]) => {
       this.newsData = data;
       this.countNewsBySource();
       this.countNewsByCountry();
       this.countNewsByLanguage();
-      this.updateChartData();
+      this.updateChartSourceData();
+      this.updateChartCountryData();
+      this.updateChartLanguageData();
     });
   }
 
+  //sorce table data
   private countNewsBySource() {
     this.newsData.forEach((news) => {
       const sourceId = news.source_id;
@@ -60,15 +69,21 @@ export class DashboardComponent implements OnInit {
       }
       this.isSourceDataLoaded = true;
     });
+    // Sort the data by descending order
+    this.sourceLabels.sort((a, b) => this.newsCountBySource[b] - this.newsCountBySource[a]);
   }
 
-  private updateChartData() {
-    // Example: Update chart data based on newsCountBySource
-    this.chartLabels = Object.keys(this.newsCountBySource);
-    this.chartData = Object.values(this.newsCountBySource);
+  //chart data for newscountbysource
+  private updateChartSourceData() {
+    const sortedLabels = Object.keys(this.newsCountBySource).sort((a, b) => this.newsCountBySource[b] - this.newsCountBySource[a]);
+    const topLabels = sortedLabels.slice(0, 15);
+    this.chartLabels = topLabels;
+    this.chartData = topLabels.map(label => this.newsCountBySource[label]);
+    console.log('Chart Labels:', this.chartLabels);
+    console.log('Chart Data:', this.chartData);
   }
 
-
+  //country table data
   private countNewsByCountry() {
     this.newsData.forEach((news) => {
       const country = news.country;
@@ -85,13 +100,35 @@ export class DashboardComponent implements OnInit {
       }
       this.isCountryDataLoaded = true;
     });
+    // Sort the data by descending order
+    const sortedCountries = Object.keys(this.newsCountByCountry).sort((a, b) => this.newsCountByCountry[b].count - this.newsCountByCountry[a].count);
+    sortedCountries.forEach((country) => {
+      const countryData = this.newsCountByCountry[country];
+      this.newsCountByCountry[country] = countryData;
+    });
   }
 
+  //chart data for newscountbycountry
+  private updateChartCountryData() {
+    const sortedCountries = Object.keys(this.newsCountByCountry).sort((a, b) => this.newsCountByCountry[b].count - this.newsCountByCountry[a].count);
+    const topCountries = sortedCountries.slice(0, 15);
+    this.chartCountryLabels = topCountries;
+    this.chartCountryData = topCountries.map(country => this.newsCountByCountry[country].count);
+    console.log('Chart Country Labels:', this.chartCountryLabels);
+    console.log('Chart Country Data:', this.chartCountryData);
+  }
+
+  //language table data
   private countNewsByLanguage() {
     this.newsCountByLanguage = this.countOccurrences(this.newsData, 'language');
     this.isLanguageDataLoaded = true;
+    // Sort the data by descending order
+    const sortedLanguages = Object.keys(this.newsCountByLanguage).sort((a, b) => this.newsCountByLanguage[b] - this.newsCountByLanguage[a]);
+    sortedLanguages.forEach((language) => {
+      const languageData = this.newsCountByLanguage[language];
+      this.newsCountByLanguage[language] = languageData;
+    });
   }
-
   private countOccurrences(data: any[], key: string): any {
     const counts: any = {};
     data.forEach(item => {
@@ -100,4 +137,16 @@ export class DashboardComponent implements OnInit {
     });
     return counts;
   }
+
+  //chart data for newscountbylanguage
+  private updateChartLanguageData() {
+    const sortedLanguages = Object.keys(this.newsCountByLanguage).sort((a, b) => this.newsCountByLanguage[b] - this.newsCountByLanguage[a]);
+    const topLanguages = sortedLanguages.slice(0, 15);
+    this.chartLanguageLabels = topLanguages;
+    this.chartLanguageData = topLanguages.map(language => this.newsCountByLanguage[language]);
+    console.log('Chart Language Labels:', this.chartLanguageLabels);
+    console.log('Chart Language Data:', this.chartLanguageData);
+  }
+
+
 }

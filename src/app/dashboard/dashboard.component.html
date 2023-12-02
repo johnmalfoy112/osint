@@ -1,9 +1,11 @@
+
 <div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
   <div>
     <h1>Welcome to OSINT</h1>
   </div>
   <h2 (click)="showTables = !showTables" style="align-self: flex-start; margin-left: 20px;">News Visualization
-    <mat-icon>{{ showTables ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon></h2>
+    <mat-icon>{{ showTables ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+  </h2>
   <div *ngIf="showTables">
     <div>
       <h3>News Count by Country</h3>
@@ -14,11 +16,11 @@
           <th>Sources</th>
           <th>Languages</th>
         </tr>
-        <tr *ngFor="let country of newsCountByCountry | keyvalue; let i = index" [hidden]="i >= 15 && !loadMoreCountry">
-          <td>{{ country.key }}</td>
-          <td>{{ country.value.count }}</td>
-          <td>{{ country.value.sources.join(', ') }}</td>
-          <td>{{ country.value.languages.join(', ') }}</td>
+        <tr *ngFor="let country of chartCountryLabels; let i = index">
+          <td>{{ country }}</td>
+          <td *ngIf="newsCountByCountry[country]">{{ newsCountByCountry[country].count }}</td>
+          <td *ngIf="newsCountByCountry[country]?.sources">{{ newsCountByCountry[country].sources.join(', ') }}</td>
+          <td *ngIf="newsCountByCountry[country]?.languages">{{ newsCountByCountry[country].languages.join(', ') }}</td>
         </tr>
       </table>
       &nbsp;
@@ -37,9 +39,9 @@
             <th>Source</th>
             <th>Count</th>
           </tr>
-          <tr *ngFor="let source of newsCountBySource | keyvalue; let i = index" [hidden]="i >= 15 && !loadMoreSource">
-            <td>{{ source.key }}</td>
-            <td>{{ source.value }}</td>
+          <tr *ngFor="let source of chartLabels; let i = index">
+            <td>{{ source }}</td>
+            <td>{{ newsCountBySource[source] }}</td>
           </tr>
         </table>
         &nbsp;
@@ -55,10 +57,9 @@
             <th>Language</th>
             <th>Count</th>
           </tr>
-          <tr *ngFor="let language of newsCountByLanguage | keyvalue; let i = index"
-            [hidden]="i >= 15 && !loadMoreLanguage">
-            <td>{{ language.key }}</td>
-            <td>{{ language.value }}</td>
+          <tr *ngFor="let language of chartLanguageLabels; let i = index">
+            <td>{{ language }}</td>
+            <td>{{ newsCountByLanguage[language] }}</td>
           </tr>
         </table>
         &nbsp;
@@ -70,4 +71,3 @@
     </div>
   </div>
 </div>
-
