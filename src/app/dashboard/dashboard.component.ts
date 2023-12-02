@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsapiService } from '../service/newsapi.service';
 import { ChartConfiguration } from 'chart.js';
+import { YouTubeService } from '../service/youtube.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,9 @@ import { ChartConfiguration } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
+  constructor(private newsService: NewsapiService , private youtubeservice: YouTubeService) { }
+
+  youtubedata: any[] = [];
   newsData: any[] = [];
   newsCountBySource: { [key: string]: number } = {};
   newsCountByCountry: { [key: string]: { count: number; sources: string[]; languages: string[] } } = {};
@@ -41,8 +45,6 @@ export class DashboardComponent implements OnInit {
     responsive: false,
   };
 
-  constructor(private newsService: NewsapiService) { }
-
   ngOnInit() {
     this.fetchNewsData();
   }
@@ -65,17 +67,25 @@ loadMoreButtonClicked(table: string) {
   }
 }
 
-
-  //fetch data from mongo db
+  //fetch news data from mongo db
   private fetchNewsData() {
     this.newsService.getNews('', '').subscribe((data: any[]) => {
       this.newsData = data;
+      // console.log(this.newsData);
       this.countNewsBySource();
       this.countNewsByCountry();
       this.countNewsByLanguage();
       this.updateChartSourceData();
       this.updateChartCountryData();
       this.updateChartLanguageData();
+    });
+  }
+
+  //fetch youtube data from mongo db
+  private fetchyoutubeData() {
+    this.youtubeservice.getMongoDBData().subscribe((data: any[]) => {
+      this.youtubedata = data;
+      // console.log(this.youtubedata);
     });
   }
 
@@ -107,8 +117,8 @@ loadMoreButtonClicked(table: string) {
         { data: this.chartData, label: 'News Count by Source' }
       ]
     };
-    console.log('Chart Labels:', this.chartLabels);
-    console.log('Chart Data:', this.chartData);
+    // console.log('Chart Labels:', this.chartLabels);
+    // console.log('Chart Data:', this.chartData);
   }
 
   //country table data
@@ -148,8 +158,8 @@ loadMoreButtonClicked(table: string) {
         { data: this.chartCountryData, label: 'News Count by Country' }
       ]
     };
-    console.log('Chart Country Labels:', this.chartCountryLabels);
-    console.log('Chart Country Data:', this.chartCountryData);
+    // console.log('Chart Country Labels:', this.chartCountryLabels);
+    // console.log('Chart Country Data:', this.chartCountryData);
   }
 
   //language table data
@@ -185,7 +195,8 @@ loadMoreButtonClicked(table: string) {
         { data: this.chartLanguageData, label: 'News Count by Language' }
       ]
     };
-    console.log('Chart Language Labels:', this.chartLanguageLabels);
-    console.log('Chart Language Data:', this.chartLanguageData);
+    // console.log('Chart Language Labels:', this.chartLanguageLabels);
+    // console.log('Chart Language Data:', this.chartLanguageData);
   }
+
 }

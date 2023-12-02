@@ -232,7 +232,6 @@ loadMore() {
   if (this.nextpagetoken) {
     this.youtubeService.loadMore(this.nextpagetoken.toString(), this.searchQuery, this.maxResults).subscribe(data => {
       const newVideos = data.items;
-
       newVideos.forEach(video => {
         const videoId = video.id.videoId;
         if (videoId) {
@@ -241,7 +240,6 @@ loadMore() {
               if (details && details.items && details.items[0] && details.items[0].snippet && details.items[0].snippet.description) {
                 video.fullDescription = details.items[0].snippet.description;
                 video.tags = details.items[0].snippet.tags;
-
                 let yt = {
                   "videoID": "https://www.youtube.com/watch?v=" + videoId,
                   "title": video.snippet.title,
@@ -252,7 +250,6 @@ loadMore() {
                   "searchQuery": this.searchQuery,
                   "tags": video.tags
                 };
-
                 this.youtubeService.saveToMongoDB(yt).subscribe({
                   next: response => {
                     // console.log('Data saved to MongoDB:', response);
@@ -271,7 +268,6 @@ loadMore() {
           // console.error(`Invalid video ID for video:`, video);
         }
       });
-
       this.videos = [...this.videos, ...newVideos]; // Concatenate the new videos with the existing ones
       this.nextpagetoken = data.nextPageToken; // Save the new nextPageToken
     });

@@ -84,4 +84,9 @@ export class YouTubeService {
     return this.http.post(this.youtubeUrl, items);
   }
 
+  //fetch data from mongo db
+  getMongoDBData(): Observable<any[]> {
+    return this.http.get<any[]>(this.youtubeUrl);
+  }
+
 }
