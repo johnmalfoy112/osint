@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
+import { param } from 'jquery';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +11,8 @@ export class NewsapiService {
 
   //News Api URL's & Keys
   private apiUrl = 'https://newsdata.io/api/1/news'; //live-search api url
-  private apiKey ='pub_297136fd8848307062cd9e1e40716b38e5a94'; // Live search API key   // 'pub_31327dffa10e6d981c22b766f47ad9b7189df','pub_297136fd8848307062cd9e1e40716b38e5a94', pub_27769500773408e29dd09933adbd80b77ff09
-  private incidenturl = 'https://newsapi.org/v2/everything';  // incident report api url
+  private apiKey = 'pub_297136fd8848307062cd9e1e40716b38e5a94'; // Live search API key   // 'pub_31327dffa10e6d981c22b766f47ad9b7189df','pub_297136fd8848307062cd9e1e40716b38e5a94', pub_27769500773408e29dd09933adbd80b77ff09
+  private incidenturl = 'https://newsapi.org/v2/top-headlines';  // incident report api url
   private apikey = '548c78746d234b3d95b0eb26278421c2';  // incident report api key
   private serverUrl = 'http://localhost:3000/api/news';  //mongo db api url don't change this
 
@@ -37,14 +38,12 @@ export class NewsapiService {
     return this._http.get<any>(this.apiUrl, { params });
   }
 
-  //incident-report api
-  // incidentews(query: string, languagecode?: string ): Observable<any> {
-  //   let params = new HttpParams().set('apikey', this.apikey).set('q', query);
-  //   if (languagecode) {
-  //     params = params.set('language', languagecode);
-  //   }
-  //     return this._http.get<any>(this.incidenturl , { params });
-  // }
+  // https://newsapi.org/v2/top-headlines?country=us&apiKey=548c78746d234b3d95b0eb26278421c2
+  //TopHeadline api
+  getTopHeadlines(country: string): Observable<any> {
+    const url = `${this.apiUrl}?country=${country}&apiKey=${this.apiKey}`;
+    return this._http.get(url);
+  }
 
   //Incident-report api offline
   getNews(query: string, language: string): Observable<any[]> {
@@ -79,11 +78,11 @@ export class NewsapiService {
   }
 
 
-// mongodb api
-saveToMongoDB(newsData: any, searchQuery: string): Observable<any> {
-  newsData.country = newsData.country[0];
-  newsData.searchQuery = searchQuery; // Add the searchQuery field
-  return this._http.post(this.serverUrl, newsData);
-}
+  // mongodb api
+  saveToMongoDB(newsData: any, searchQuery: string): Observable<any> {
+    newsData.country = newsData.country[0];
+    newsData.searchQuery = searchQuery; // Add the searchQuery field
+    return this._http.post(this.serverUrl, newsData);
+  }
 
 }

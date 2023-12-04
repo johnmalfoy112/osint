@@ -3,45 +3,64 @@
     <h1>Welcome to OSINT</h1>
   </div>
   &nbsp;
-   &nbsp;
-<!-- News Charts Visualization -->
-<h2 style="align-self: flex-start; margin-left: 10px;">News Visualization</h2>
-<h2 (click)="showTables = !showTables" style="align-self: flex-end; margin-left: auto; margin-right: 10px;">
-  Tabular Data
-  <mat-icon>{{ showTables ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
-</h2> 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
-  <div style="width: 45%; margin: 10px;">
-    <!-- Chart for News Count by Source -->
-    <div style="height: 400px;">
-      <h3>News Count by Source</h3>
-      <canvas baseChart [datasets]="barChartData.datasets" [labels]="barChartData.labels" [options]="barChartOptions"
-        [legend]="barChartLegend" [plugins]="barChartPlugins" [type]="'bar'" style="height: 400px; width: 600px;">
-      </canvas>
+  &nbsp;
+  <!-- Top Headlines -->
+  <div *ngIf="topData && topData.length > 0"
+    style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
+    <h2 style="width: 100%; margin-left: 10px;">Top Headlines</h2>
+    <div *ngFor="let headline of topData.slice(0, 10)" style="width: 100%; margin: 5px;">
+      <div class="container-fluid transparent-bg">
+        <div class="row mt-3">
+          <a class="link" [href]="headline.link" target="_blank">
+            <h5 style="font-size: 1.2rem; font-weight: bold;">
+              {{ headline.title }}
+            </h5>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-  <div style="width: 50%; margin: 10px;">
-    <!-- Chart for News Count by Country -->
-    <div style="height: 400px;">
-      <h3>News Count by Country</h3>
-      <canvas baseChart [datasets]="[{ data: chartCountryData, label: 'News Count by Country' }]"
-        [labels]="chartCountryLabels" [options]="barChartOptions" [legend]="barChartLegend"
-        [plugins]="barChartPlugins" [type]="'bar'" style="height: 400px; width: 600px;">
-      </canvas>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <!-- News Charts Visualization -->
+  <h2 style="align-self: flex-start; margin-left: 10px;">News Visualization</h2>
+  <h2 (click)="showTables = !showTables" style="align-self: flex-end; margin-left: auto; margin-right: 10px;">
+    Tabular Data
+    <mat-icon>{{ showTables ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+  </h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
+    <div style="width: 45%; margin: 10px;">
+      <!-- Chart for News Count by Source -->
+      <div style="height: 400px;">
+        <h3>News Count by Source</h3>
+        <canvas baseChart [datasets]="barChartData.datasets" [labels]="barChartData.labels" [options]="barChartOptions"
+          [legend]="barChartLegend" [plugins]="barChartPlugins" [type]="'bar'" style="height: 400px; width: 600px;">
+        </canvas>
+      </div>
+    </div>
+    <div style="width: 50%; margin: 10px;">
+      <!-- Chart for News Count by Country -->
+      <div style="height: 400px;">
+        <h3>News Count by Country</h3>
+        <canvas baseChart [datasets]="[{ data: chartCountryData, label: 'News Count by Country' }]"
+          [labels]="chartCountryLabels" [options]="barChartOptions" [legend]="barChartLegend"
+          [plugins]="barChartPlugins" [type]="'bar'" style="height: 400px; width: 600px;">
+        </canvas>
+      </div>
+    </div>
+    <div style="width: 90%; margin-left: 30%; margin-top: 50px;">
+      <!-- Chart for News Count by Language -->
+      <div style="height: 600px;">
+        <h3>News Count by Language</h3>
+        <canvas baseChart [datasets]="[{ data: chartLanguageData, label: 'News Count by Language' }]"
+          [labels]="chartLanguageLabels" [options]="barChartOptions" [legend]="barChartLegend"
+          [plugins]="barChartPlugins" [type]="'bar'" style="height: 400px; width: 600px;">
+        </canvas>
+      </div>
     </div>
   </div>
-  <div style="width: 90%; margin-left: 30%; margin-top: 50px;">
-    <!-- Chart for News Count by Language -->
-    <div style="height: 600px;">
-      <h3>News Count by Language</h3>
-      <canvas baseChart [datasets]="[{ data: chartLanguageData, label: 'News Count by Language' }]"
-        [labels]="chartLanguageLabels" [options]="barChartOptions" [legend]="barChartLegend" [plugins]="barChartPlugins"
-        [type]="'bar'" style="height: 400px; width: 600px;">
-      </canvas>
-    </div>
-  </div>
-</div>
-
   <!-- News Table Visualizations -->
   <div *ngIf="showTables">
     <div>
@@ -60,11 +79,6 @@
           <td *ngIf="newsCountByCountry[country]?.languages">{{ newsCountByCountry[country].languages.join(', ') }}</td>
         </tr>
       </table>
-      &nbsp;
-      <button *ngIf="isCountryDataLoaded" (click)="loadMoreCountry = !loadMoreCountry"
-        style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
-        {{ loadMoreCountry ? 'Show Less' : 'Load More' }}
-      </button>
     </div>
     &nbsp;
     &nbsp;
@@ -81,11 +95,6 @@
             <td>{{ newsCountBySource[source] }}</td>
           </tr>
         </table>
-        &nbsp;
-        <button *ngIf="isSourceDataLoaded" (click)="loadMoreSource = !loadMoreSource"
-          style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
-          {{ loadMoreSource ? 'Show Less' : 'Load More' }}
-        </button>
       </div>
       <div style="width: 50%;">
         <h3>News Count by Language</h3>
@@ -99,13 +108,7 @@
             <td>{{ newsCountByLanguage[language] }}</td>
           </tr>
         </table>
-        &nbsp;
-        <button *ngIf="isLanguageDataLoaded" (click)="loadMoreLanguage = !loadMoreLanguage"
-          style="border: 2px solid white; border-radius: 10px; background: transparent; color: white;">
-          {{ loadMoreLanguage ? 'Show Less' : 'Load More' }}
-        </button>
       </div>
     </div>
   </div>
-
 </div>

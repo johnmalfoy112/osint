@@ -44,3 +44,6 @@ body { margin: 0; background: #1E293B; color: #FFFFFF; font-family:  "Segoe UI" 
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -10,17 +10,15 @@ import { YouTubeService } from '../service/youtube.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private newsService: NewsapiService , private youtubeservice: YouTubeService) { }
+  constructor(private newsService: NewsapiService, private youtubeservice: YouTubeService) { }
 
   youtubedata: any[] = [];
   newsData: any[] = [];
+  topData: any[] = [];
   newsCountBySource: { [key: string]: number } = {};
   newsCountByCountry: { [key: string]: { count: number; sources: string[]; languages: string[] } } = {};
   newsCountByLanguage: { [key: string]: number } = {};
   sourceLabels: string[] = [];
-  loadMoreSource: boolean = false;
-  loadMoreCountry: boolean = false;
-  loadMoreLanguage: boolean = false;
   isCountryDataLoaded: boolean = false;
   isSourceDataLoaded: boolean = false;
   isLanguageDataLoaded: boolean = false;
@@ -49,24 +47,6 @@ export class DashboardComponent implements OnInit {
     this.fetchNewsData();
   }
 
-  //load more button data
-//load more button data
-loadMoreButtonClicked(table: string) {
-  if (table === 'source') {
-    // Update the number of items to show for the source table
-    this.itemsToShow = this.loadMoreSource ? 15 : this.sourceLabels.length;
-    this.loadMoreSource = !this.loadMoreSource;
-  } else if (table === 'country') {
-    // Update the number of items to show for the country table
-    this.itemsToShow = this.loadMoreCountry ? 15 : this.chartCountryLabels.length;
-    this.loadMoreCountry = !this.loadMoreCountry;
-  } else if (table === 'language') {
-    // Update the number of items to show for the language table
-    this.itemsToShow = this.loadMoreLanguage ? 15 : this.chartLanguageLabels.length;
-    this.loadMoreLanguage = !this.loadMoreLanguage;
-  }
-}
-
   //fetch news data from mongo db
   private fetchNewsData() {
     this.newsService.getNews('', '').subscribe((data: any[]) => {
@@ -79,16 +59,18 @@ loadMoreButtonClicked(table: string) {
       this.updateChartCountryData();
       this.updateChartLanguageData();
     });
+    this.fetchTopHeadlines('in');
   }
 
-  //fetch youtube data from mongo db
-  private fetchyoutubeData() {
-    this.youtubeservice.getMongoDBData().subscribe((data: any[]) => {
-      this.youtubedata = data;
-      // console.log(this.youtubedata);
+  //top headlines
+  fetchTopHeadlines(country: string) {
+    this.newsService.getTopHeadlines(country).subscribe((data) => {
+      this.topData = data.results;
+      console.log(this.topData);
+      // Handle the data as needed
     });
   }
-
+ 
   //source table data
   private countNewsBySource() {
     this.newsData.forEach((news) => {
