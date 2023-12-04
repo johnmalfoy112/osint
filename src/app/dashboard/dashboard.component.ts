@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsapiService } from '../service/newsapi.service';
 import { ChartConfiguration } from 'chart.js';
-import { YouTubeService } from '../service/youtube.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,9 +9,8 @@ import { YouTubeService } from '../service/youtube.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private newsService: NewsapiService, private youtubeservice: YouTubeService) { }
+  constructor(private newsService: NewsapiService) { }
 
-  youtubedata: any[] = [];
   newsData: any[] = [];
   topData: any[] = [];
   newsCountBySource: { [key: string]: number } = {};
@@ -67,7 +65,6 @@ export class DashboardComponent implements OnInit {
     this.newsService.getTopHeadlines(country).subscribe((data) => {
       this.topData = data.results;
       console.log(this.topData);
-      // Handle the data as needed
     });
   }
  
