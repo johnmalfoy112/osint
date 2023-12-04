@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
   fetchTopHeadlines(country: string) {
     this.newsService.getTopHeadlines(country).subscribe((data) => {
       this.topData = data.results;
-      console.log(this.topData);
+      // console.log(this.topData);
     });
   }
  

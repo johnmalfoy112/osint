@@ -53,6 +53,7 @@ import { ElibraryComponent } from './elibrary/elibrary.component';
 import { RegisterComponent } from './register/register.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+
 @NgModule({
   declarations: [
     AppComponent,
