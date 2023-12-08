@@ -47,4 +47,5 @@ export class AppComponent {
     // Redirect to the login page after logout
     this.router.navigate(['/login']);
   }
+  
 }

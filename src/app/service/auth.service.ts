@@ -13,8 +13,6 @@ export class AuthService {
   constructor(private http: HttpClient) { this.setupWindowEventListener(); }
 
   registerUser(userDetails: User): Observable<User> {
-    // Set the role to 'user' for regular registrations
-    userDetails.role = 'user';
     return this.http.post<User>(this.baseUrl, userDetails);
   }
 

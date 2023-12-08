@@ -82,7 +82,8 @@ const userSchema = new mongoose.Schema({
   id: String,
   fullName: String,
   email: String,
-  password: String
+  password: String,
+  role: { type: String, enum: ['admin', 'user'] }
 });
 
 const News = mongoose.model('News', newsSchema);
@@ -197,16 +198,17 @@ app.get('/api/pdf/:filename', (req, res) => {
 // API endpoint to register a new user
 app.post('/api/users', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body; 
+    console.log('Received role:', role);
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword, role });
     await newUser.save();
     res.status(201).json({ message: 'User registered successfully.' });
   } catch (error) {
     res.status(400).json({ message: 'Registration failed.' });
-    console.log(res.status);
   }
 });
+
 
 // API endpoint to handle user login
 app.post('/api/users/login', async (req, res) => {

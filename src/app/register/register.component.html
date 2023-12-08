@@ -60,6 +60,17 @@
         Password should match
       </small>
     </div>
+    <div class="field">
+      <label for="role">Role:-</label>
+      <select formControlName="role" class="w-full" name="role">
+        <option value="" disabled>Select Role</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+      <small *ngIf="registerForm.get('role')?.invalid && (registerForm.get('role')?.dirty || registerForm.get('role')?.touched)" class="block error">
+        Role is required.
+      </small>
+    </div>
     <br>
     <button class="w-full" [disabled]="registerForm.invalid" type="submit">Register</button>
     <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>

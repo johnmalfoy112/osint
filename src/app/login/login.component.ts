@@ -43,12 +43,12 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error => {
-        console.error('Login failed:', error.error.message);
+        console.error('Login failed:', error);
         localStorage.setItem("islogin", "false");
       }
     );
   }
-
+  
   // Logout functionality
   logout(): void {
     this.authService.logout();

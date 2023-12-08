@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/auth';
 import { AuthService } from '../service/auth.service';
@@ -12,39 +12,40 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
 })
 export class RegisterComponent {
 
-  showPassword = false; // Added property
-  showConfirmPassword: boolean = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
-  //registration form group
-  registerForm = this.fb.group({
-    fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required]
-  }, {
-    validators: passwordMatchValidator
-  })
+  registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    this.initializeForm();
+  }
 
   //get user details
   get fullName() {
-    return this.registerForm.controls['fullName'];
-  }
-  get email() {
-    return this.registerForm.controls['email'];
-  }
-  get password() {
-    return this.registerForm.controls['password'];
-  }
-  get confirmPassword() {
-    return this.registerForm.controls['confirmPassword'];
+    return this.registerForm.get('fullName');
   }
 
-   //show password
-   togglePasswordVisibility() {
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
+  }
+
+  get role(){
+    return this.registerForm.get('role');
+  }
+
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
@@ -52,21 +53,32 @@ export class RegisterComponent {
   //submit button function
   submitDetails() {
     const postData = { ...this.registerForm.value };
-    // console.log(postData);
     delete postData.confirmPassword;
-    // Assuming userDetails is an object containing user details
-    this.authService.registerUser(postData as User).subscribe(
-      response => {
-        // console.log(response);
-        console.log('Register successfully');
-        // Handle successful registration, e.g., navigate to login page
+    // Extract the selected role from the dropdown
+    console.log('Selected Role:', this.registerForm.get('role')?.value);
+    postData.role = this.registerForm.get('role')?.value;
+    console.log('Post Data:', postData);
+    this.authService.registerUser(postData).subscribe(
+      () => {
         this.router.navigate(['login']);
       },
-      error => {
-        console.error('Something went wrong');
+      (error) => {
         // Handle registration error
       }
     );
+  }
+  
+
+  private initializeForm() {
+    this.registerForm = this.fb.group({
+      fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      role: ['']
+    }, {
+      validators: passwordMatchValidator
+    });
   }
 
 }
