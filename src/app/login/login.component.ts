@@ -38,16 +38,21 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.authService.loginUser(email as string, password as string).subscribe(
       response => {
+        console.log('Login Response:', response);
         sessionStorage.setItem('email', email as string);
-        localStorage.setItem("islogin", "true");
+        localStorage.setItem('islogin', 'true');
+        // Store the user details in localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+        localStorage.setItem('role', response.user.role);
         this.router.navigate(['/dashboard']);
       },
       error => {
         console.error('Login failed:', error);
-        localStorage.setItem("islogin", "false");
+        localStorage.setItem('islogin', 'false');
       }
     );
   }
+
   
   // Logout functionality
   logout(): void {

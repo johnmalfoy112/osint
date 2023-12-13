@@ -39,6 +39,10 @@ export class GoogleSearchComponent {
     }
   }
 
+  handleImageError(event: any) {
+    event.target.src = '../../../assets/nope-not-here.jpg';
+  }
+
   // Search placeholder functions
   isFocused: boolean = false;
   onFocus() {

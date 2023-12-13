@@ -27,6 +27,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('islogin');
+    localStorage.removeItem('role'); 
   }
 
   getLoggedInUser(): User | null {

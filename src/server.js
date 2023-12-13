@@ -198,7 +198,7 @@ app.get('/api/pdf/:filename', (req, res) => {
 // API endpoint to register a new user
 app.post('/api/users', async (req, res) => {
   try {
-    const { email, password, role } = req.body; 
+    const { email, password, role } = req.body;
     console.log('Received role:', role);
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashedPassword, role });
@@ -208,7 +208,6 @@ app.post('/api/users', async (req, res) => {
     res.status(400).json({ message: 'Registration failed.' });
   }
 });
-
 
 // API endpoint to handle user login
 app.post('/api/users/login', async (req, res) => {
@@ -222,7 +221,9 @@ app.post('/api/users/login', async (req, res) => {
     if (!isPasswordMatch) {
       return res.status(401).json({ message: 'Incorrect email or password.' });
     }
-    res.status(200).json({ message: 'Login successful.' });
+    // Include the user role in the response
+    const { _id, fullName, email: userEmail, role } = user;
+    res.status(200).json({ message: 'Login successful.', user: { _id, fullName, email: userEmail, role } });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error.' });
   }
