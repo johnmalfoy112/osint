@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FullscreenService } from './service/fullscreen.service';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -20,25 +19,11 @@ export class AppComponent {
   constructor(
     private fullscreenService: FullscreenService,
     private authService: AuthService,
-    private router: Router,
-    private cdr: ChangeDetectorRef // Add this line
+    private router: Router
   ) {  }
 
-  ngOnInit() {
-    const loggedInUser = this.authService.getLoggedInUser();
-    if (loggedInUser) {
-      // Fetch role from local storage
-      const storedRole = localStorage.getItem('role');
-      if (storedRole) {
-        this.welcomeMessage = `Welcome ${storedRole} ${loggedInUser.email}`;
-        console.log('Welcome Message:', this.welcomeMessage);
-      }
-    
-      this.cdr.detectChanges(); // Add this line
-    }
-  }
+  ngOnInit() {}
 
-  
   toggleFullscreen() {
     const element = document.documentElement;
     this.fullscreenService.toggleFullscreen(element);
