@@ -15,3 +15,8 @@ Run `npm start` for a backend server. Connected to `http://localhost:3000/`. It 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 Run `npm install` to build the node module. 
+
+node js. ==>  v18.17.1
+npm  ==>  v9.6.7
+angular ==>  v17.0.3
+mongo db ==> v7.0
