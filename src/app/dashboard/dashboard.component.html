@@ -91,5 +91,23 @@
       </div>
     </div>
   </div>
+  &nbsp;
+  &nbsp;
+  <!-- Top Headlines -->
+  <div *ngIf="topData && topData.length > 0"
+    style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
+    <h2 style="width: 100%; margin-left: 10px;">Top Headlines</h2>
+    <div *ngFor="let headline of topData.slice(0, 10)" style="width: 100%; margin: 5px;">
+      <div class="container-fluid transparent-bg">
+        <div class="row mt-3">
+          <a class="link" [href]="headline.link" target="_blank">
+            <h5 style="font-size: 1.2rem; font-weight: bold;">
+              {{ headline.title }}
+            </h5>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
