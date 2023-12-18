@@ -55,6 +55,7 @@ export class YouTubeSearchComponent {
   selectedVideoId: string;
   details: { [key: string]: any } = {};
   nextpagetoken: String | undefined;
+  selectedVideos: any[] = [];
 
   //back button
   goBack() {
@@ -67,6 +68,24 @@ export class YouTubeSearchComponent {
     this.selectedSentimentFilter = filter;
     this.searchVideos();
   }
+
+    // Function to add or remove an article from the selected list
+    toggleSelectedVideos(video: any) {
+      const index = this.videos.findIndex(item => item === video);
+      if (index !== -1) {
+        const removedVideo = this.videos.splice(index, 1)[0];
+        const selectedVideoIndex = this.selectedVideos.findIndex(item => item === removedVideo);
+        if (selectedVideoIndex !== -1) {
+          this.selectedVideos.splice(selectedVideoIndex, 1);
+        }
+      }
+      // console.log('Toggle selected videos called with video:', video);
+    }
+    isVideoSelected(video: any) {
+      // console.log('isVideoSelected called with video:', video);
+      // console.log('Selected videos array:', this.selectedVideos);
+      return this.selectedVideos.includes(video);
+    }
 
   // sentiment filter
   filterResults() {
@@ -379,7 +398,7 @@ loadMore() {
               if (details && details.items && details.items[0] && details.items[0].snippet && details.items[0].snippet.description) {
                 video.fullDescription = details.items[0].snippet.description;
                 video.tags = details.items[0].snippet.tags;
-                console.log(details);
+                // console.log(details);
                 // console.log(video.fullDescription);
                 // console.log(details.items[0].snippet.tags);
                 // console.log(typeof (details.items[0].snippet.tags));

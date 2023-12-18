@@ -12,6 +12,9 @@ export class FlickrComponent {
 
   searchtext: string = '';  //search query
   photos: any[] = [];  //data store
+  selectedPhotos: any[] = [];
+
+  
 
   // search placeholder functions
   isFocused: boolean = false;
@@ -21,6 +24,17 @@ export class FlickrComponent {
   onBlur() {
     this.isFocused = false;
   }
+
+    // Function to add or remove an article from the selected list
+    toggleSelectedArticle(photo: any) {
+      const index = this.photos.findIndex(item => item === photo);
+      if (index !== -1) {
+        this.photos.splice(index, 1);
+      }
+    }
+    isArticleSelected(article: any) {
+      return this.selectedPhotos.includes(article);
+    }
 
   //flickr search api
   search() {

@@ -29,8 +29,8 @@
   </div>
   <!-- middle space -->
   <span class="example-spacer"></span>
-  <button mat-button class="btn text-light p-3 py-2 btn-light rounded-5 body-dropdown" style="width: 40px; height: 40px;"
-    (click)="exportAllPhotos()">
+  <button mat-button class="btn text-light p-3 py-2 btn-light rounded-5 body-dropdown"
+    style="width: 40px; height: 40px;" (click)="exportAllPhotos()">
     <img src="./../../../assets/zip.svg" alt="Export Icon" style="width: 40px; height: 40px;">
   </button>
 </mat-toolbar-row>
@@ -46,12 +46,18 @@
           </div>
         </div>
         <div class="card-body d-flex flex-row align-items-center justify-content-between">
-          <a [href]="getPhotoSource(photo)" target="_blank" class="mr-3" style="font-size: 20px;">
+          <a [href]="getPhotoSource(photo)" target="_blank" class="mr-auto" style="font-size: 20px;">
             {{ photo.title | slice:0:10 }}
           </a>
-          <button (click)="downloadPhoto(photo)" class="btn btn-secondary" style="height: 30px; width: 50px;">
-            <i class="fas fa-download"></i>
-          </button>
+          <div class="d-flex flex-row align-items-center">
+            <button (click)="downloadPhoto(photo)" class="btn btn-secondary" style="height: 30px; width: 50px; margin-right: 10px;">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="close red-close" mat-button (click)="toggleSelectedArticle(photo)">
+              <mat-icon *ngIf="isArticleSelected(photo)">clear</mat-icon>
+              <mat-icon *ngIf="!isArticleSelected(photo)">close</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>

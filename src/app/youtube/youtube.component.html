@@ -58,8 +58,9 @@
       <mat-icon style="color: yellow;">help_outline</mat-icon> Neutral
     </button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="sentimentMenu"  *ngIf="videos.length > 0"
-    class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg" style="height:40px; width: 150px;" >
+  <button mat-button [matMenuTriggerFor]="sentimentMenu" *ngIf="videos.length > 0"
+    class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown transparent-bg"
+    style="height:40px; width: 150px;">
     Sentiment
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
@@ -74,13 +75,21 @@
         <div class="card-header d-flex align-items-center">
           <img class="rounded-circle mr-2" [src]="video.snippet.thumbnails.default.url" alt="Channel Profile" width="40"
             height="40" style="margin-right: 10px;">
-          <div class="ml-10">
-            <h5 class="mb-0 card-title">
-              <a href="javascript:void(0)" (click)="showChannelVideosFromSearch(video)">
-                {{ video.snippet.channelTitle }}
-              </a>
-            </h5>
-            <p class="mb-0">{{ video.snippet.publishedAt | date:'medium' }}</p>
+          <div class="ml-10 d-flex justify-content-between w-100">
+            <div>
+              <h5 class="mb-0 card-title">
+                <a href="javascript:void(0)" (click)="showChannelVideosFromSearch(video)">
+                  {{ video.snippet.channelTitle }}
+                </a>
+              </h5>
+              <p class="mb-0">{{ video.snippet.publishedAt | date:'medium' }}</p>
+            </div>
+            <div>
+              <button class="close red-close" mat-button (click)="toggleSelectedVideos(video)">
+                <mat-icon *ngIf="isVideoSelected(video)">clear</mat-icon>
+                <mat-icon *ngIf="!isVideoSelected(video)">close</mat-icon>
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-body d-flex flex-column">
@@ -97,8 +106,7 @@
       </div>
     </div>
   </div>
-  <!-- <button (click)="loadMore()" *ngIf="nextpagetoken">Load More</button> -->
-  <div class="d-flex justify-content-center" *ngIf="videos.length > 0">
+  <div class="d-flex justify-content-end mt-3" *ngIf="videos.length > 0" style="margin-right: 50%;" >
     <button mat-button class="btn text-bg-light p-3 py-2 btn-light border rounded-5 body-dropdown" (click)="loadMore()"
       *ngIf="nextpagetoken">Load More</button>
   </div>
