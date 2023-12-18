@@ -61,9 +61,11 @@
                     <p>{{item.link}}</p>
                     <div class="gsc-table-result">
                       <p>
-                        <img src="{{item.pagemap.metatags[0]['og:image'] }}" target="_blank" alt="{{ item.title }}"
-                          width='50' height="50" alt="Image not found"
-                          onerror="this.onerror=null;this.src='../../../assets/nope-not-here.jpg';">
+                        <ng-container
+                          *ngIf="item.pagemap && item.pagemap.metatags && item.pagemap.metatags[0]['og:image']">
+                          <img src="{{item.pagemap.metatags[0]['og:image'] }}" target="_blank" alt="{{ item.title }}"
+                            width="50" height="50" alt="Image not found" (error)="handleImageError($event)" />
+                        </ng-container>
                         {{ item.snippet }}
                       </p>
                     </div>

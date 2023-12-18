@@ -70,7 +70,7 @@
     &nbsp;
     &nbsp;
     <button mat-button [matMenuTriggerFor]="welcomemenu" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
-      Welcome
+      {{ welcomeMessage }}
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #welcomemenu="matMenu" class="matMenu">
@@ -78,5 +78,8 @@
     </mat-menu>
   </mat-toolbar>
 </p>
+
+<p>{{ welcomeMessage }}</p>
+
 <!-- navbar closes -->
 <router-outlet></router-outlet>

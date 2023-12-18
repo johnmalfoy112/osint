@@ -8,7 +8,7 @@ import { User } from '../interfaces/auth';
 })
 export class AuthService {
 
-  private baseUrl = 'http://192.168.130.176:3000/api/users';
+  private baseUrl = 'http://localhost:3000/api/users';
 
   constructor(private http: HttpClient) { this.setupWindowEventListener(); }
 
@@ -27,6 +27,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('islogin');
+    localStorage.removeItem('role'); 
   }
 
   getLoggedInUser(): User | null {
