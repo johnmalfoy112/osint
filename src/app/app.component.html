@@ -52,6 +52,16 @@
       Google</button>
     &nbsp;
     &nbsp;
+    <button class="image-search" [routerLink]="['/image-search']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
+      Image-Search</button>
+    &nbsp;
+    &nbsp;
+    <button class="googletrend" [routerLink]="['/googletrend']" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
+      Google Trends</button>
+    &nbsp;
+    &nbsp;
     <!-- <button class="telegram" [routerLink]="['/telegram']" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
       Telegram</button>
     &nbsp;
@@ -69,7 +79,8 @@
     </button>
     &nbsp;
     &nbsp;
-    <button mat-button [matMenuTriggerFor]="welcomemenu" *ngIf="isAuthenticated()" style="background-color: transparent; color: white;">
+    <button mat-button [matMenuTriggerFor]="welcomemenu" *ngIf="isAuthenticated()"
+      style="background-color: transparent; color: white;">
       {{ welcomeMessage }}
       <mat-icon>arrow_drop_down</mat-icon>
     </button>

@@ -1,0 +1,62 @@
+<!-- second toolbox -->
+<mat-toolbar-row style="height:80px;">
+  &nbsp;
+  &nbsp;
+  <div class="py-4 ">
+    <div class="container-fluid px-6">
+      <div class="row">
+        <div class="col-xl">
+          <div class="input-group">
+            <!-- search box -->
+            <input type="text" class="form-control rounded-5 shadow transparent-bg" [class.input-highlight]="isFocused"
+              (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="imageUrl" placeholder="Enter image url"
+              (keyup.enter)="searchByImage()" aria-label="Search Word" aria-describedby="button-addon2" />
+            &nbsp;
+            &nbsp;
+            <button class="btn btn-outline-secondary" type="Search" id="Search-addon2" style="height:40px; width: 40px;"
+              (click)="searchByImage()">
+              <!-- search logo -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-toolbar-row>
+<!-- <div class="container-fluid mt-2">
+  <div class="gsc-wrapper">
+    <div class="row mt-3">
+      <div class="col-lg-3 mt-3 mb-3" *ngFor="let item of inlineImages">
+        <div class="card h-100 highlight-card" style="border: 1px;">
+          <div class="card-header d-flex align-items-center">
+            <a [href]="item.source" target="_blank">
+              <img class="card-img-top w-100 rounded-top-4" [src]="item.thumbnail" [alt]="item.source" alt="Channel Profile"
+                height="250" style="margin-right: 10px;">
+            </a>
+            <div class="ml-10">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="searchResults && searchResults.inline_images && searchResults.inline_images.length > 0">
+  <h2>Inline Images:</h2>
+  <div class="image-container">
+    <div *ngFor="let item of searchResults.inline_images" class="image-card">
+      <div>
+        <img [src]="item.thumbnail" alt="Thumbnail" />
+        <p>Source: <a [href]="item.source" target="_blank">{{ item.source }}</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

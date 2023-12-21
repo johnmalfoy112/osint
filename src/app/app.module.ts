@@ -53,6 +53,8 @@ import { ElibraryComponent } from './elibrary/elibrary.component';
 import { RegisterComponent } from './register/register.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { ImageSearchComponent } from './image-search/image-search.component';
+import { GoogleTrendsSearchComponent } from './google-trends-search/google-trends-search.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
     FacebookComponent,
     ElibraryComponent,
     RegisterComponent,
+    ImageSearchComponent,
+    GoogleTrendsSearchComponent,
   ],
   imports: [
     RouterModule,

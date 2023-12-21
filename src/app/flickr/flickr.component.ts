@@ -14,8 +14,6 @@ export class FlickrComponent {
   photos: any[] = [];  //data store
   selectedPhotos: any[] = [];
 
-  
-
   // search placeholder functions
   isFocused: boolean = false;
   onFocus() {

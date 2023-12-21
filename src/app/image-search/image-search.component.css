@@ -1,0 +1,249 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .color-button {
+    color: black !important;
+    padding: 0.75rem 1rem !important;
+    background-color: white !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.5rem !important;
+  }
+  .color-button:hover {
+    background-color: #f8f9fa !important;
+    /* Light gray on hover */
+  }
+  .mat-toolbar.mat-primary {
+    background: #007bff;
+    color: #fff;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    height: 50px;
+    width: 280px;
+    background-color: #f0f0f0;
+    /* Replace with your desired background color */
+  }
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    box-sizing: content-box;
+    height: 50px;
+    width: 280px;
+    background-color: #f0f0f0;
+    /* Replace with your desired background color */
+  }
+  .transparent-bg {
+    background-color: transparent !important;
+    color: #fffff0 !important; /* Set text color to #fffff0 */
+  }
+  
+  .transparent-bg::placeholder {
+    color: #fffff0; /* Set placeholder color to #fffff0 */
+  }
+  .modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    height: 350px;
+    width: 280px;
+    background-color: #f0f0f0;
+    font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+    /* Replace with your desired background color */
+  }
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .wrapper {
+    display: table;
+    height: 100%;
+    width: 100%;
+  }
+  .container-fostrap {
+    display: table-cell;
+    padding: 1em;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .fostrap-logo {
+    width: 100px;
+    margin-bottom: 15px
+  }
+  h1.heading {
+    color: #fff;
+    font-size: 1.15em;
+    font-weight: 900;
+    margin: 0 0 0.5em;
+    color: #505050;
+  }
+  .link {
+    color: black;
+    text-decoration: none;
+  }
+  .sourcelink {
+    color: #0D6EFD;
+    text-decoration: none;
+  }
+  .selected {
+    color: green;
+    /* Adjust color as needed */
+  }
+  .close {
+    width: 48px;
+    height: 48px;
+  }
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  .card-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  .card-title a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .card-title a:hover {
+    text-decoration: underline;
+  }
+  .card-text {
+    font-size: 15px;
+    color: #000000;
+  }
+  .card-footer {
+    padding: 10px;
+    text-align: center;
+  }
+  .btn-dark {
+    background-color: #343a40;
+    color: #fff;
+  }
+  .btn-dark:hover {
+    background-color: #212529;
+  }
+  .card-footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+  }
+  .card-info {
+    font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+  }
+  .form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+    /* Optional: Add a box shadow for better visibility */
+  }
+  .input-highlight {
+    border-color: #dc3545 !important;
+    box-shadow: 0px 0px 10px rgba(220, 53, 69, 0.5) !important;
+  }
+  button.btn-outline-secondary {
+    border: none;
+  }
+  button.btn-outline-secondary:focus {
+    outline: none;
+  }
+  .articlesource {
+    font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+    font-size: 16px;
+    color: #0D6EFD;
+    text-decoration: none;
+  }
+  .articlepubdate {
+    font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+    font-size: 14px;
+    color: #6c757d;
+  }
+  .red-close .mat-icon {
+    color: red;
+  }
+  .play-button-container {
+    position: relative;
+  }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px; /* Adjust the size of the play button icon */
+    color: #fff; /* Adjust the color of the play button icon */
+  }
+  .modal-backdrop {
+    opacity: 0.5 !important; /* Adjust overlay opacity if needed */
+  }
+  .modal-content {
+    background-color: #fff; /* Background color of modal */
+    border-radius: 10px; /* Optional: Add rounded corners */
+  }
+  .modal-header {
+    background-color: #f8f9fa; /* Background color of header */
+  }
+  .modal-title {
+    font-weight: bold;
+  }
+  .close {
+    font-size: 1.5rem;
+  }
+  .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+  }
+  .modal-content {
+    margin: auto;
+  }
+  .modal-backdrop.custom-backdrop {
+    filter: blur(5px); /* Adjust the amount of blur as needed */
+  }
+  .highlight-card {
+    transition: box-shadow 0.3s;
+  }
+  .highlight-card:hover {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow effect here */
+  }
+  .card-title {
+    font-family: "Segoe UI" Roboto"Helvetica Neue" "Noto Sans" "Liberation Sans" Arialsans-serif"Apple Color Emoji" "Segoe UI Emoji" "Segoe UI Symbol" "Noto Color Emoji";
+    font-size: 16px;
+    color: #212529;
+  }
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .image-card {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .image-card p {
+    margin-top: 8px;
+  }
+  

@@ -14,6 +14,8 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { ElibraryComponent } from './elibrary/elibrary.component';
 import { RegisterComponent } from './register/register.component';
 import { authGuard } from './guard/auth.guard';
+import { ImageSearchComponent } from './image-search/image-search.component';
+import { GoogleTrendsSearchComponent } from './google-trends-search/google-trends-search.component';
 
 const routes: Routes = [
    //Routes for components
@@ -36,6 +38,9 @@ const routes: Routes = [
   { path: 'globalsearch', component: GlobalsearchComponent, canActivate:[authGuard] },
   { path: 'facebook', component: FacebookComponent ,canActivate: [authGuard]},
   { path: 'elibrary', component: ElibraryComponent ,canActivate: [authGuard]},
+  { path: 'image-search', component: ImageSearchComponent ,canActivate: [authGuard]},
+  { path: 'googletrend', component: GoogleTrendsSearchComponent ,canActivate: [authGuard]},
+
 ];
 
 
