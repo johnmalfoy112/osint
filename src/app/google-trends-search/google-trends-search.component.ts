@@ -1,5 +1,3 @@
-// src/app/components/google-trends-search/google-trends-search.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GoogleTrendsSearchService } from '../service/google-trends-search.service';
