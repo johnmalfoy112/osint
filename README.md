@@ -16,7 +16,14 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `npm install` to build the node module. 
 
+<<<<<<< HEAD
 
 node js ==> v 18.17.1
 npm ==> 9.6.7
 angular ==> 17.0.3
+=======
+node js. ==>  v18.17.1
+npm  ==>  v9.6.7
+angular ==>  v17.0.3
+mongo db ==> v7.0
+>>>>>>> bee0162627080bbaf599607b02f49d907ddc229f

@@ -32,6 +32,7 @@ export class AuthService {
 
   getLoggedInUser(): User | null {
     const userJson = localStorage.getItem('loggedInUser');
+    console.log(userJson);  
     return userJson ? JSON.parse(userJson) : null;
   }
 

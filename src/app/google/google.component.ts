@@ -42,7 +42,10 @@ export class GoogleSearchComponent {
   handleImageError(event: any) {
     event.target.src = '../../../assets/nope-not-here.jpg';
   }
+<<<<<<< HEAD
   
+=======
+>>>>>>> bee0162627080bbaf599607b02f49d907ddc229f
 
   // Search placeholder functions
   isFocused: boolean = false;
